@@ -1,11 +1,33 @@
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const lineSeed = localFont({
+  src: [
+    {
+      path: "./font/seed/LINESeedJP_OTF_Bd.woff2",
+      weight: "700",
+    },
+    {
+      path: "./font/seed/LINESeedJP_OTF_Eb.woff2",
+      weight: "800",
+    },
+    {
+      path: "./font/seed/LINESeedJP_OTF_Rg.woff2",
+      weight: "400",
+    },
+    {
+      path: "./font/seed/LINESeedJP_OTF_Th.woff2",
+      weight: "100",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -20,7 +42,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body className={`${geistMono.className} antialiased`}>
+      <body
+        className={`${geistMono.className} ${lineSeed.className} antialiased`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
