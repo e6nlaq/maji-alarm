@@ -2,7 +2,7 @@ import Clock from "./clock";
 
 export default function Alarm() {
   return (
-    <div className="flex items-center justify-center h-svh animate-rainbow-bg">
+    <div className="relative flex items-center justify-center h-svh animate-rainbow-bg">
       <Clock />
     </div>
   );

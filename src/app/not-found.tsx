@@ -10,7 +10,7 @@ const geistMono = Geist_Mono({
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-18">
+    <div className="flex flex-col items-center justify-center min-h-svh gap-18">
       <div className="flex flex-col items-center gap-2">
         <h1 className={`text-9xl font-bold ${geistMono.className}`}>
           <NumberTicker value={404} startValue={200} />

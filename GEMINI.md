@@ -12,7 +12,7 @@
 
 ## ファイル
 
-- src/components/magicui および src/components/ui、 src/app/font/ 内のファイルは、明示的な要求なしに変更しないでください。
+- src/components/magicui および src/components/ui、 src/app/font/ 内のファイルは、明示的な要求なしに変更・追加しないでください。
 
 ## Next.js
 
