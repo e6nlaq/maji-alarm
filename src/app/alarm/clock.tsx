@@ -28,11 +28,11 @@ const Clock = () => {
 
   return (
     <div className="text-center">
-      <div className="text-2xl mb-1">{formattedDate}</div>
-      <div className="font-mono text-9xl">
-        {formattedTime.split(':')[0]}
+      <div className="text-xl sm:text-2xl mb-1">{formattedDate}</div>
+      <div className="font-mono text-7xl md:text-8xl lg:text-9xl">
+        {formattedTime.split(":")[0]}
         <span className="animate-blink">:</span>
-        {formattedTime.split(':')[1]}
+        {formattedTime.split(":")[1]}
       </div>
     </div>
   );

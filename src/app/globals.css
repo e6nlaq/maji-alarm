@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @layer utilities {
   @keyframes blink {
@@ -8,6 +7,17 @@
   }
   .animate-blink {
     animation: blink 1s infinite;
+  }
+
+  @keyframes rainbow-bg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .animate-rainbow-bg {
+    background: linear-gradient(-45deg,#ff0c59,#ff1bcd,#cd35ff,#6e3dff,#507cff,#3fff3f,#ffe51f, #ff8c66, #ff359a, #d43939 );
+    background-size: 400% 400%;
+    animation: rainbow-bg 4s ease infinite;
   }
 }
 
