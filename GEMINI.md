@@ -1,5 +1,9 @@
 # Rules for GEMINI
 
+## 基本
+- OSはWindows11です。
+  - そのため、Linuxコマンドは使えないことを意識してください。
+
 ## JavaScript / TypeScript
 
 - node や npm,yarn,pnpm は使用しないでください。
