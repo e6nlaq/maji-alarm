@@ -3,6 +3,8 @@ import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { CircleAlert } from "lucide-react";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -51,6 +53,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <noscript>
+            <Alert className="w-fit" variant="destructive">
+              <CircleAlert className="h-4 w-4" />
+              <AlertTitle>JavaScriptを有効にしてください</AlertTitle>
+              <AlertDescription>
+                このサイトを正しく表示するにはJavaScriptを有効にしていただく必要があります。
+              </AlertDescription>
+            </Alert>
+          </noscript>
           {children}
         </ThemeProvider>
       </body>
