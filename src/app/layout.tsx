@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body
-        className={`${geistMono.className} ${lineSeed.className} antialiased`}
+        className={`${geistMono.variable} ${lineSeed.className} antialiased`}
       >
         <ThemeProvider
           attribute="class"
