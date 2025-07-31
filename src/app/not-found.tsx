@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { Button } from "@/components/ui/button";
 

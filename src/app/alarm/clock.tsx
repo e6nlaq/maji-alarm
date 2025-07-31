@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
 const Clock = () => {
   const [time, setTime] = useState(new Date());
@@ -13,26 +13,30 @@ const Clock = () => {
   }, []);
 
   const dateOptions: Intl.DateTimeFormatOptions = {
-    month: 'long',
-    day: 'numeric',
-    weekday: 'short',
+    month: "long",
+    day: "numeric",
+    weekday: "short",
   };
   const timeOptions: Intl.DateTimeFormatOptions = {
-    hour: '2-digit',
-    minute: '2-digit',
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: false,
   };
 
-  const formattedDate = new Intl.DateTimeFormat('ja-JP', dateOptions).format(time);
-  const formattedTime = new Intl.DateTimeFormat('ja-JP', timeOptions).format(time);
+  const formattedDate = new Intl.DateTimeFormat("ja-JP", dateOptions).format(
+    time
+  );
+  const formattedTime = new Intl.DateTimeFormat("ja-JP", timeOptions).format(
+    time
+  );
 
   return (
     <div className="text-center text-white">
       <div className="text-xl sm:text-2xl mb-1">{formattedDate}</div>
       <div className="font-mono text-7xl md:text-8xl lg:text-9xl">
-        {formattedTime.split(':')[0]}
+        {formattedTime.split(":")[0]}
         <span className="animate-blink">:</span>
-        {formattedTime.split(':')[1]}
+        {formattedTime.split(":")[1]}
       </div>
     </div>
   );

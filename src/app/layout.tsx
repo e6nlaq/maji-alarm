@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { CircleAlert } from "lucide-react";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
