@@ -1,7 +1,7 @@
+import { getSoundFiles } from "@/lib/sound";
 import Clock from "./_components/clock";
-import { SoundProvider } from "./_hooks/use-sound";
 import MoveButton from "./_components/move-button";
-import { getSoundFiles } from "@/lib/sounds";
+import { SoundProvider } from "./_hooks/use-sound";
 
 export default function Alarm() {
   const soundFiles = getSoundFiles().map((file) => `/sound/${file}`);

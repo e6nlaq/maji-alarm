@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import fs from "node:fs";
 import path from "node:path";
-import { getSoundFiles } from "@/lib/sounds";
+import { getSoundFiles } from "@/lib/sound";
 
 const testDir = path.join(__dirname, "test_sounds");
 
