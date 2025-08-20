@@ -6,8 +6,8 @@
     "useIgnoreFile": false
   },
   "files": {
-    "ignoreUnknown": false,
-    "includes": ["src/**/*.ts", "src/**/*.tsx"]
+    "ignoreUnknown": true,
+    "includes": ["src/**/*.ts", "src/**/*.tsx","!node_modules/**/*","!.git/**/*","!.next/**/*"]
   },
   "formatter": {
     "enabled": true,

@@ -63,7 +63,6 @@ export function SoundProvider({
   useEffect(() => {
     const interval = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * soundRefs.current.length);
-      console.log(randomIndex);
       const randomSoundRef = soundRefs.current[randomIndex];
       if (randomSoundRef.current) {
         randomSoundRef.current.play();
