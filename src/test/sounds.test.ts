@@ -1,4 +1,4 @@
-import { describe, test, expect, afterAll, beforeAll } from "bun:test";
+import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import fs from "node:fs";
 import path from "node:path";
 import { getSoundFiles } from "@/lib/sounds";
@@ -42,7 +42,9 @@ describe("getSoundFiles", () => {
   test("should return an empty array when directory is not specified and public/sound does not exist", () => {
     // このテストは、public/soundが存在しない環境で実行する必要がある
     // ここでは、存在しないパスを渡すことでシミュレートする
-    const sounds = getSoundFiles(path.join(process.cwd(), "non_existent_public", "sound"));
+    const sounds = getSoundFiles(
+      path.join(process.cwd(), "non_existent_public", "sound")
+    );
     expect(sounds).toEqual([]);
   });
 });

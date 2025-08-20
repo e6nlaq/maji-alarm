@@ -9,7 +9,6 @@ import path from "node:path";
 export const getSoundFiles = (
   soundDirectory = path.join(process.cwd(), "public/sound")
 ): string[] => {
-
   try {
     // ディレクトリの内容を同期的に読み取り
     const allFiles = fs.readdirSync(soundDirectory);
