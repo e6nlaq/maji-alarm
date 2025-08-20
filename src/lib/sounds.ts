@@ -6,9 +6,9 @@ import path from "node:path";
  * この関数はサーバーサイドでのみ動作します。
  * @returns ファイル名の文字列配列。ディレクトリが読み取れない場合は空の配列を返します。
  */
-export const getSoundFiles = (): string[] => {
-  // プロジェクトのルートディレクトリからの相対パスで 'public/sound' を指定
-  const soundDirectory = path.join(process.cwd(), "public/sound");
+export const getSoundFiles = (
+  soundDirectory = path.join(process.cwd(), "public/sound")
+): string[] => {
 
   try {
     // ディレクトリの内容を同期的に読み取り
