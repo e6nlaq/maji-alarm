@@ -12,8 +12,10 @@ export default function MoveButton({ className, ...props }: MoveButtonProps) {
     <RainbowButton
       className={cn(
         process.env.NODE_ENV !== "development" && "animate-shake",
+        "text-lg",
         className
       )}
+      size="lg"
       {...props}
     />
   );
