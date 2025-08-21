@@ -19,23 +19,22 @@ export interface SoundRef {
   stop: () => void;
 }
 
-export const Sound = forwardRef<
-  SoundRef,
-  { path: string; volume?: number }
->(({ path, volume }, ref) => {
-  const [play, { stop }] = useSound(path, {
-    interrupt: false,
-    volume: volume,
-  });
+export const Sound = forwardRef<SoundRef, { path: string; volume?: number }>(
+  ({ path, volume }, ref) => {
+    const [play, { stop }] = useSound(path, {
+      interrupt: false,
+      volume: volume,
+    });
 
-  useImperativeHandle(ref, () => ({
-    play,
-    stop,
-  }));
+    useImperativeHandle(ref, () => ({
+      play,
+      stop,
+    }));
 
-  // このコンポーネントはUIを持たない
-  return null;
-});
+    // このコンポーネントはUIを持たない
+    return null;
+  }
+);
 
 Sound.displayName = "Sound";
 

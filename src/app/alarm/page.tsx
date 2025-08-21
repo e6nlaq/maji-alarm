@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { getGameDirectories } from "@/lib/game";
+import { getRandomInt } from "@/lib/rand";
 import Clock from "./_components/clock";
 import MoveButton from "./_components/move-button";
 
 export default function Alarm() {
   const games = getGameDirectories();
-  const randomIndex = Math.floor(Math.random() * games.length);
+  const randomIndex = getRandomInt(0, games.length - 1);
 
   return (
     <div className="flex flex-col items-center justify-center gap-y-5">
