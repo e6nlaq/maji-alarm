@@ -19,8 +19,14 @@ export interface SoundRef {
   stop: () => void;
 }
 
-export const Sound = forwardRef<SoundRef, { path: string }>(({ path }, ref) => {
-  const [play, { stop }] = useSound(path, { interrupt: false });
+export const Sound = forwardRef<
+  SoundRef,
+  { path: string; volume?: number }
+>(({ path, volume }, ref) => {
+  const [play, { stop }] = useSound(path, {
+    interrupt: false,
+    volume: volume,
+  });
 
   useImperativeHandle(ref, () => ({
     play,
@@ -45,12 +51,15 @@ const SoundContext = createContext<SoundContextType | undefined>(undefined);
 export function SoundProvider({
   children,
   soundPaths,
+  volume,
 }: {
   children?: ReactNode;
   soundPaths: string[];
+  volume?: number;
 }) {
   // useRefを使ってrefの配列を管理する
   const soundRefs = useRef<React.RefObject<SoundRef>[]>([]);
+  volume ??= 1;
 
   // soundPathsの長さに合わせてrefの配列を初期化・更新
   if (soundRefs.current.length !== soundPaths.length) {
@@ -83,7 +92,12 @@ export function SoundProvider({
   return (
     <SoundContext.Provider value={contextValue}>
       {soundPaths.map((path, index) => (
-        <Sound key={path} path={path} ref={soundRefs.current[index]} />
+        <Sound
+          key={path}
+          path={path}
+          ref={soundRefs.current[index]}
+          volume={volume}
+        />
       ))}
       {children}
     </SoundContext.Provider>

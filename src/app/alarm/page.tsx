@@ -10,7 +10,7 @@ export default function Alarm() {
   return (
     <div className="flex flex-col items-center justify-center gap-y-5">
       <Clock />
-      <MoveButton variant="dark">
+      <MoveButton variant="dark" asChild>
         <Link href={`/game/${games[randomIndex]}`}>STOP</Link>
       </MoveButton>
     </div>

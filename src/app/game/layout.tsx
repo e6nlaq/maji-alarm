@@ -1,7 +1,7 @@
+import { SoundProvider } from "@/hooks/use-sound";
 import { getSoundFiles } from "@/lib/sound";
-import { SoundProvider } from "../../hooks/use-sound";
 
-export default function AlarmLayout({
+export default function GameLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -10,7 +10,7 @@ export default function AlarmLayout({
 
   return (
     <div className="relative flex flex-col items-center justify-center h-svh animate-rainbow-bg">
-      <SoundProvider soundPaths={soundFiles}></SoundProvider>
+      <SoundProvider soundPaths={soundFiles} volume={0.5}></SoundProvider>
       {children}
     </div>
   );
