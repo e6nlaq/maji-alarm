@@ -1,3 +1,4 @@
+"use client";
 import {
   RainbowButton,
   type RainbowButtonProps,
@@ -8,6 +9,12 @@ interface MoveButtonProps extends RainbowButtonProps {}
 
 export default function MoveButton({ className, ...props }: MoveButtonProps) {
   return (
-    <RainbowButton className={cn("animate-shake", className)} {...props} />
+    <RainbowButton
+      className={cn(
+        process.env.NODE_ENV !== "development" && "animate-shake",
+        className
+      )}
+      {...props}
+    />
   );
 }
