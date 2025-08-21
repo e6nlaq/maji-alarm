@@ -4,6 +4,8 @@ import { getRandomInt } from "@/lib/rand";
 import Clock from "./_components/clock";
 import MoveButton from "./_components/move-button";
 
+export const dynamic = "force-dynamic";
+
 export default function Alarm() {
   const games = getGameDirectories();
   const randomIndex = getRandomInt(0, games.length - 1);
