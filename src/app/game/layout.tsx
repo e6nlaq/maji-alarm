@@ -1,5 +1,11 @@
 import { SoundProvider } from "@/hooks/use-sound";
 import { getSoundFiles } from "@/lib/sound";
+import { ResolvingMetadata } from "next";
+
+export async function generateMetadata(parent: ResolvingMetadata) {
+  const parentTitle = (await parent).title;
+}
+  
 
 export default function GameLayout({
   children,

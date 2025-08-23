@@ -33,7 +33,10 @@ const lineSeed = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Maji Alarm",
+  title: {
+    template: "%s | Maji Alarm",
+    absolute: "Maji Alarm",
+  },
   description: "マジで絶対起こすアラーム",
   icons: "/favicon.svg",
 };
