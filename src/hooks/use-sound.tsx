@@ -3,9 +3,9 @@
 import {
   createContext,
   createRef,
-  forwardRef,
   type ReactNode,
-  useContext,
+  type Ref,
+  use,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -19,24 +19,28 @@ export interface SoundRef {
   stop: () => void;
 }
 
-export const Sound = forwardRef<SoundRef, { path: string; volume?: number }>(
-  ({ path, volume }, ref) => {
-    const [play, { stop }] = useSound(path, {
-      interrupt: false,
-      volume: volume,
-    });
+export function Sound({
+  path,
+  volume,
+  ref,
+}: {
+  path: string;
+  volume?: number;
+  ref: Ref<SoundRef>;
+}) {
+  const [play, { stop }] = useSound(path, {
+    interrupt: false,
+    volume: volume,
+  });
 
-    useImperativeHandle(ref, () => ({
-      play,
-      stop,
-    }));
+  useImperativeHandle(ref, () => ({
+    play,
+    stop,
+  }));
 
-    // このコンポーネントはUIを持たない
-    return null;
-  }
-);
-
-Sound.displayName = "Sound";
+  // このコンポーネントはUIを持たない
+  return null;
+}
 
 // 2. Contextの作成
 interface SoundContextType {
@@ -70,6 +74,9 @@ export function SoundProvider({
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (soundRefs.current.length === 0) {
+        return;
+      }
       const randomIndex = Math.floor(Math.random() * soundRefs.current.length);
       const randomSoundRef = soundRefs.current[randomIndex];
       if (randomSoundRef.current) {
@@ -105,7 +112,7 @@ export function SoundProvider({
 
 // 4. Contextを利用するためのカスタムフック
 export function useSounds() {
-  const context = useContext(SoundContext);
+  const context = use(SoundContext);
   if (context === undefined) {
     throw new Error("useSounds must be used within a SoundProvider");
   }
