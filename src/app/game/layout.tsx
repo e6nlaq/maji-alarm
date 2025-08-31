@@ -1,10 +1,6 @@
 import { SoundProvider } from "@/hooks/use-sound";
 import { getSoundFiles } from "@/lib/sound";
-import { ResolvingMetadata } from "next";
 
-export async function generateMetadata(parent: ResolvingMetadata) {
-  const parentTitle = (await parent).title;
-}
   
 
 export default function GameLayout({
@@ -15,7 +11,7 @@ export default function GameLayout({
   const soundFiles = getSoundFiles().map((file) => `/sound/${file}`);
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-svh animate-rainbow-bg">
+    <div className="relative flex flex-col items-center justify-center h-svh">
       <SoundProvider soundPaths={soundFiles} volume={0.5}></SoundProvider>
       {children}
     </div>
