@@ -1,5 +1,5 @@
-import type { GameData } from "@/types/game";
 import type { Metadata } from "next";
+import type { GameData } from "@/types/game";
 
 export const gameData: GameData = {
   title: "フラッシュ暗算",

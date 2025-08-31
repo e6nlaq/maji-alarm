@@ -1,8 +1,6 @@
 import { SoundProvider } from "@/hooks/use-sound";
 import { getSoundFiles } from "@/lib/sound";
 
-  
-
 export default function GameLayout({
   children,
 }: Readonly<{
