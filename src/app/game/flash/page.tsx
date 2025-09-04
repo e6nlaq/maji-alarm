@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import HowToPlay from "@/components/how-to-play";
 import type { GameData } from "@/types/game";
 
 const gameData: GameData = {
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
   title: gameData.title,
 };
 
-const Page = () => {
-  return <div>{gameData.description}</div>;
-};
-export default Page;
+export default function Flash() {
+  return (
+    <div>
+      <HowToPlay gameData={gameData} />
+    </div>
+  );
+}
