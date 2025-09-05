@@ -13,7 +13,7 @@ import {
 export default function HowToPlay({ gameData }: { gameData: GameData }) {
   return (
     <Dialog defaultOpen>
-      <DialogContent className="bg-background/20 backdrop-blur-sm">
+      <DialogContent className="dark:bg-background/25 bg-background/65 backdrop-blur-lg">
         <DialogHeader>
           <DialogTitle>{gameData.title}</DialogTitle>
           <DialogDescription>{gameData.description}</DialogDescription>
