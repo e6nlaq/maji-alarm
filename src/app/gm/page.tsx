@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -23,8 +23,8 @@ export default function GoodMorning() {
         <Image
           src="/morning.jpg"
           alt="すがすがしい朝の写真"
-          layout="fill"
-          objectFit="cover"
+          fill
+          className="object-cover"
         ></Image>
       </div>
     </div>
