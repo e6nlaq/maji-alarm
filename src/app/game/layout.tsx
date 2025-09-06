@@ -9,8 +9,8 @@ export default function GameLayout({
   const soundFiles = getSoundFiles().map((file) => `/sound/${file}`);
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-svh">
-      <SoundProvider soundPaths={soundFiles} volume={0.3}></SoundProvider>
+    <div className="relative flex flex-col items-center justify-center h-svh w-full">
+      <SoundProvider soundPaths={soundFiles} volume={0.1}></SoundProvider>
       {children}
     </div>
   );
