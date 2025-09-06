@@ -7,7 +7,7 @@ import path from "node:path";
  * @returns ファイル名の文字列配列。ディレクトリが読み取れない場合は空の配列を返します。
  */
 export const getSoundFiles = (
-  soundDirectory = path.join(process.cwd(), "public/sound")
+  soundDirectory = path.join(process.cwd(), "public/sound/alarm")
 ): string[] => {
   try {
     // ディレクトリの内容を同期的に読み取り

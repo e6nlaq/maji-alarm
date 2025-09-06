@@ -6,7 +6,7 @@ export default function GameLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const soundFiles = getSoundFiles().map((file) => `/sound/${file}`);
+  const soundFiles = getSoundFiles().map((file) => `/sound/alarm/${file}`);
 
   return (
     <div className="relative flex flex-col items-center justify-center h-svh w-full">
