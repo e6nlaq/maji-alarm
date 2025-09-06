@@ -9,6 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { getRandomInt } from "@/lib/rand";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 
 const TOTAL_NUMBERS = 6;
 const DURATION_SECONDS = 5;
@@ -106,7 +107,9 @@ export default function FlashGame() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserAnswer(e.target.value);
+    if (/^[0-9]+$/.test(e.target.value)) {
+      setUserAnswer(e.target.value);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -138,18 +141,19 @@ export default function FlashGame() {
         return (
           <div className="flex flex-col items-center gap-4">
             <p>合計を入力してください</p>
-            <input
-              type="number"
+            {/* 若干見栄えが悪くなるのでtypeは設定しない*/}
+            <Input
+              min={0}
+              inputMode="numeric"
               value={userAnswer}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              className={cn(
-                "flex h-10 w-48 rounded-md border border-input bg-background px-3 py-2 text-center text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              )}
-              // biome-ignore lint/a11y/noAutofocus: off
+              className="text-center"
               autoFocus
             />
-            <Button onClick={checkAnswer}>回答</Button>
+            <Button onClick={checkAnswer} className="cursor-pointer">
+              回答
+            </Button>
           </div>
         );
       case "result":
@@ -167,14 +171,16 @@ export default function FlashGame() {
                   : `正解は ${sum} でした。`}
               </AlertDescription>
             </Alert>
-            <Button onClick={startGame}>もう一度挑戦</Button>
+            <Button onClick={startGame} className="cursor-pointer">
+              もう一度挑戦
+            </Button>
           </div>
         );
       default:
         return (
           <div className="text-center flex flex-col items-center gap-4">
             <h1 className="sm:text-5xl text-3xl font-bold">フラッシュ暗算</h1>
-            <Button onClick={startGame} size="lg">
+            <Button onClick={startGame} size="lg" className="cursor-pointer">
               スタート
             </Button>
           </div>

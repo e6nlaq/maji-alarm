@@ -20,7 +20,7 @@ export default function HowToPlay({ gameData }: { gameData: GameData }) {
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button>閉じる</Button>
+            <Button className="cursor-pointer">閉じる</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
