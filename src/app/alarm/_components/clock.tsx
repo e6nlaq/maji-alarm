@@ -16,11 +16,13 @@ const Clock = () => {
     month: "long",
     day: "numeric",
     weekday: "short",
+    timeZone: "Asia/Tokyo",
   };
   const timeOptions: Intl.DateTimeFormatOptions = {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
+    timeZone: "Asia/Tokyo",
   };
 
   const formattedDate = time.toLocaleDateString("ja-JP", dateOptions);
