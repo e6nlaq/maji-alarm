@@ -6,7 +6,7 @@ import { getGameDirectories } from "@/lib/game";
 
 // fs.Direntの簡易的なモック
 const createDirent = (name: string, isDirectory: boolean): Dirent =>
-  (({
+  ({
     name,
     isDirectory: () => isDirectory,
     isFile: () => !isDirectory,
@@ -14,8 +14,8 @@ const createDirent = (name: string, isDirectory: boolean): Dirent =>
     isCharacterDevice: () => false,
     isSymbolicLink: () => false,
     isFIFO: () => false,
-    isSocket: () => false
-  }) as Dirent);
+    isSocket: () => false,
+  }) as Dirent;
 
 describe("getGameDirectories", () => {
   let readdirSyncSpy: ReturnType<typeof spyOn>;

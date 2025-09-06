@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { getRandomInt } from '@/lib/rand';
-import MoveButton from './move-button';
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getRandomInt } from "@/lib/rand";
+import MoveButton from "./move-button";
 
 type Props = {
   games: string[];
