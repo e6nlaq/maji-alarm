@@ -1,6 +1,7 @@
 "use client";
 
 import { CircleXIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ const COUNTDOWN_SECONDS = 3;
 type GameState = "idle" | "countdown" | "playing" | "input" | "result";
 
 export default function FlashGame() {
+  const router = useRouter();
   const [gameState, setGameState] = useState<GameState>("idle");
   const [numbers, setNumbers] = useState<number[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,9 +61,16 @@ export default function FlashGame() {
   }, [gameState, countdown]);
 
   const startGame = () => {
-    const newNumbers = Array.from({ length: TOTAL_NUMBERS }, () =>
-      getRandomInt(1, 9)
-    );
+    const newNumbers: number[] = [];
+    let lastNumber = -1; // A number that won't be generated
+    for (let i = 0; i < TOTAL_NUMBERS; i++) {
+      let nextNumber: number;
+      do {
+        nextNumber = getRandomInt(1, 9);
+      } while (nextNumber === lastNumber);
+      newNumbers.push(nextNumber);
+      lastNumber = nextNumber;
+    }
     setNumbers(newNumbers);
     setCurrentIndex(0);
     setUserAnswer("");
@@ -72,8 +81,12 @@ export default function FlashGame() {
 
   const checkAnswer = () => {
     const answer = parseInt(userAnswer, 10);
-    setIsCorrect(!Number.isNaN(answer) && answer === sum);
-    setGameState("result");
+    if (!Number.isNaN(answer) && answer === sum) {
+      router.push("/gm");
+    } else {
+      setIsCorrect(false);
+      setGameState("result");
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
