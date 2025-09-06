@@ -1,21 +1,16 @@
-import Link from "next/link";
 import { getGameDirectories } from "@/lib/game";
-import { getRandomInt } from "@/lib/rand";
 import Clock from "./_components/clock";
-import MoveButton from "./_components/move-button";
+import RandomGameButton from "./_components/random-game-button";
 
 export const dynamic = "force-dynamic";
 
 export default function Alarm() {
   const games = getGameDirectories();
-  const randomIndex = getRandomInt(0, games.length - 1);
 
   return (
     <div className="flex flex-col items-center justify-center gap-y-5">
       <Clock />
-      <MoveButton variant="dark" asChild>
-        <Link href={`/game/${games[randomIndex]}`}>STOP</Link>
-      </MoveButton>
+      <RandomGameButton games={games} />
     </div>
   );
 }

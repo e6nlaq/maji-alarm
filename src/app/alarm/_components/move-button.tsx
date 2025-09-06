@@ -10,11 +10,7 @@ interface MoveButtonProps extends RainbowButtonProps {}
 export default function MoveButton({ className, ...props }: MoveButtonProps) {
   return (
     <RainbowButton
-      className={cn(
-        process.env.NODE_ENV !== "development" && "animate-shake",
-        "text-lg",
-        className
-      )}
+      className={cn("animate-shake text-lg", className)}
       size="lg"
       {...props}
     />
