@@ -10,7 +10,7 @@ export default function GameLayout({
 
   return (
     <div className="relative flex flex-col items-center justify-center h-svh">
-      <SoundProvider soundPaths={soundFiles} volume={0.5}></SoundProvider>
+      <SoundProvider soundPaths={soundFiles} volume={0.3}></SoundProvider>
       {children}
     </div>
   );
