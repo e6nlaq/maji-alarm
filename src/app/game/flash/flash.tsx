@@ -1,6 +1,7 @@
 "use client";
 
 import { CircleXIcon } from "lucide-react";
+import localFont from "next/font/local";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -12,6 +13,11 @@ const TOTAL_NUMBERS = 6;
 const DURATION_SECONDS = 5;
 const INTERVAL_MS = (DURATION_SECONDS / TOTAL_NUMBERS) * 1000;
 const COUNTDOWN_SECONDS = 3;
+
+const abacusFont = localFont({
+  src: "../../font/ABACUS2.woff2",
+  display: "swap",
+});
 
 type GameState = "idle" | "countdown" | "playing" | "input" | "result";
 
@@ -109,7 +115,12 @@ export default function FlashGame() {
         );
       case "playing":
         return (
-          <div className="flex items-center justify-center text-9xl font-bold h-48 text-green-500">
+          <div
+            className={cn(
+              "flex items-center justify-center text-9xl font-bold h-48 text-green-500",
+              abacusFont.className
+            )}
+          >
             {currentIndex < numbers.length && numbers[currentIndex]}
           </div>
         );
