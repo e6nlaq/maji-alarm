@@ -4,6 +4,7 @@ import { CircleXIcon } from "lucide-react";
 import localFont from "next/font/local";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import useSound from "use-sound";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { getRandomInt } from "@/lib/rand";
@@ -23,6 +24,9 @@ type GameState = "idle" | "countdown" | "playing" | "input" | "result";
 
 export default function FlashGame() {
   const router = useRouter();
+  const [playCountdownSound] = useSound("/sound/flash/countdown.mp3");
+  const [playShowSound] = useSound("/sound/flash/show.mp3");
+  const [playWrongSound] = useSound("/sound/flash/wrong.mp3");
   const [gameState, setGameState] = useState<GameState>("idle");
   const [numbers, setNumbers] = useState<number[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,6 +40,10 @@ export default function FlashGame() {
   useEffect(() => {
     if (gameState !== "playing") return;
 
+    if (currentIndex < TOTAL_NUMBERS) {
+      if (playShowSound) playShowSound();
+    }
+
     if (currentIndex >= TOTAL_NUMBERS) {
       setGameState("input");
       return;
@@ -46,7 +54,7 @@ export default function FlashGame() {
     }, INTERVAL_MS);
 
     return () => clearTimeout(timer);
-  }, [gameState, currentIndex]);
+  }, [gameState, currentIndex, playShowSound]);
 
   // Countdown timer
   useEffect(() => {
@@ -67,6 +75,7 @@ export default function FlashGame() {
   }, [gameState, countdown]);
 
   const startGame = () => {
+    if (playCountdownSound) playCountdownSound();
     const newNumbers: number[] = [];
     let lastNumber = -1; // A number that won't be generated
     for (let i = 0; i < TOTAL_NUMBERS; i++) {
@@ -90,6 +99,7 @@ export default function FlashGame() {
     if (!Number.isNaN(answer) && answer === sum) {
       router.push("/gm");
     } else {
+      if (playWrongSound) playWrongSound();
       setIsCorrect(false);
       setGameState("result");
     }
