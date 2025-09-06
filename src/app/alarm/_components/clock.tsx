@@ -23,12 +23,8 @@ const Clock = () => {
     hour12: false,
   };
 
-  const formattedDate = new Intl.DateTimeFormat("ja-JP", dateOptions).format(
-    time
-  );
-  const formattedTime = new Intl.DateTimeFormat("ja-JP", timeOptions).format(
-    time
-  );
+  const formattedDate = time.toLocaleDateString("ja-JP", dateOptions);
+  const formattedTime = time.toLocaleTimeString("ja-JP", timeOptions);
 
   return (
     <div className="text-center text-white">
