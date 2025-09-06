@@ -15,7 +15,7 @@ export default function NotFound() {
         <h1 className={`text-9xl font-bold ${geistMono.className}`}>
           <NumberTicker value={404} startValue={200} />
         </h1>
-        <p className="text-lg font-semibold">Page Not Found</p>
+        <p className="text-lg font-semibold">Not Found</p>
       </div>
       <Button asChild className="w-fit">
         <Link href="/">トップページに戻る</Link>
