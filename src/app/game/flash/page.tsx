@@ -6,7 +6,7 @@ import FlashGame from "./flash";
 const gameData: GameData = {
   title: "フラッシュ暗算",
   description:
-    "6口/1桁/6秒のフラッシュ暗算を行います。3秒間のカウントダウンの後に、表示された数字の総和を入力してください。",
+    "6口/1桁/5秒のフラッシュ暗算を行います。3秒間のカウントダウンの後に、表示された数字の総和を入力してください。",
 };
 
 export const metadata: Metadata = {
