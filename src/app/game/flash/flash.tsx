@@ -122,7 +122,7 @@ export default function FlashGame() {
     switch (gameState) {
       case "countdown":
         return (
-          <div className="flex items-center justify-center text-9xl font-bold h-48">
+          <div className="flex items-center justify-center md:text-9xl text-7xl font-bold h-48">
             {countdown > 0 ? countdown : "Start!"}
           </div>
         );
