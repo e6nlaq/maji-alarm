@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import useSound from "use-sound";
 import { Button } from "@/components/ui/button";
@@ -20,11 +20,13 @@ export default function PrimeGame() {
   const [gameState, setGameState] = useState<GameState>("idle");
   const [targetNumber, setTargetNumber] = useState(0);
   const [userInput, setUserInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
 
   const startGame = () => {
     let newNumber: number;
     do {
-      newNumber = getRandomInt(10, 100);
+      newNumber = getRandomInt(20, 200);
     } while (isPrime(newNumber));
     setTargetNumber(newNumber);
     setUserInput("");
@@ -35,9 +37,11 @@ export default function PrimeGame() {
     const answer = parseInt(userInput, 10);
     setUserInput("");
 
+    inputRef.current?.focus();
     if (Number.isNaN(answer) || answer <= 1) {
       if (playWrongSound) playWrongSound();
       toast.error("2以上の整数を入力してください。");
+
       return;
     }
 
@@ -46,6 +50,7 @@ export default function PrimeGame() {
       toast.error(`${answer} は素数ではありません。新しい数字でやり直します。`);
       setGameState("loading");
       setTimeout(startGame, 1500);
+
       return;
     }
 
@@ -53,14 +58,15 @@ export default function PrimeGame() {
       const newTarget = targetNumber / answer;
       if (playCorrectSound) playCorrectSound();
 
+      setTargetNumber(newTarget);
       if (newTarget === 1) {
         toast.success("クリア！おめでとうございます！");
         router.push("/gm");
         return;
       }
 
-      setTargetNumber(newTarget);
       toast.success(`正解！ ${answer} で割りました。`);
+
     } else {
       if (playWrongSound) playWrongSound();
       toast.error(
@@ -68,6 +74,7 @@ export default function PrimeGame() {
       );
       setGameState("loading");
       setTimeout(startGame, 1500);
+
     }
   };
 
@@ -109,13 +116,13 @@ export default function PrimeGame() {
             </div>
             <p>素数を入力して割ってください</p>
             <Input
+              ref={inputRef}
               min={2}
               inputMode="numeric"
               value={userInput}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
               className="text-center"
-              autoFocus
             />
             <Button onClick={checkAnswer} className="cursor-pointer">
               割る
