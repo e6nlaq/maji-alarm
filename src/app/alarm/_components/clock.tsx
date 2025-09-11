@@ -1,16 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Clock = () => {
   const [time, setTime] = useState(new Date());
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setHydrated(true);
     const timer = setInterval(() => {
       setTime(new Date());
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  if (!hydrated) {
+    return (
+      <div className="text-center text-white">
+        <Skeleton className="h-8 w-48 mx-auto mb-1" />
+        <Skeleton className="h-24 w-96 mx-auto" />
+      </div>
+    );
+  }
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     month: "long",
