@@ -4,13 +4,13 @@ import { CircleXIcon } from "lucide-react";
 import localFont from "next/font/local";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import useSound from "use-sound";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getRandomInt } from "@/lib/rand";
 import { cn } from "@/lib/utils";
-import { toast } from "sonner";
 
 const TOTAL_NUMBERS = 6;
 const DURATION_SECONDS = 5;

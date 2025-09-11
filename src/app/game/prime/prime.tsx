@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 import useSound from "use-sound";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,6 @@ export default function PrimeGame() {
   const [targetNumber, setTargetNumber] = useState(0);
   const [userInput, setUserInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-
 
   const startGame = () => {
     let newNumber: number;
@@ -66,7 +65,6 @@ export default function PrimeGame() {
       }
 
       toast.success(`正解！ ${answer} で割りました。`);
-
     } else {
       if (playWrongSound) playWrongSound();
       toast.error(
@@ -74,7 +72,6 @@ export default function PrimeGame() {
       );
       setGameState("loading");
       setTimeout(startGame, 1500);
-
     }
   };
 
