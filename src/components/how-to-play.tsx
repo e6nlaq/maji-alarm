@@ -1,3 +1,5 @@
+"use client";
+
 import type { GameData } from "@/types/game";
 import { Button } from "./ui/button";
 import {
@@ -13,7 +15,12 @@ import {
 export default function HowToPlay({ gameData }: { gameData: GameData }) {
   return (
     <Dialog defaultOpen>
-      <DialogContent className="dark:bg-background/25 bg-background/65 backdrop-blur-lg">
+      <DialogContent
+        className="dark:bg-background/25 bg-background/65 backdrop-blur-lg"
+        onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
+      >
         <DialogHeader>
           <DialogTitle>{gameData.title}</DialogTitle>
           <DialogDescription>{gameData.description}</DialogDescription>
