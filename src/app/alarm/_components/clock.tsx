@@ -18,8 +18,8 @@ const Clock = () => {
   if (!hydrated) {
     return (
       <div className="text-center text-white">
-        <Skeleton className="h-8 w-48 mx-auto mb-1" />
-        <Skeleton className="h-24 w-96 mx-auto" />
+        <Skeleton className="h-8 w-48 mx-auto mb-1 bg-white" />
+        <Skeleton className="h-24 w-96 mx-auto bg-white" />
       </div>
     );
   }
