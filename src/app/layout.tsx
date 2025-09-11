@@ -5,6 +5,7 @@ import "./globals.css";
 import { CircleAlert } from "lucide-react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -67,6 +68,7 @@ export default function RootLayout({
             </Alert>
           </noscript>
           {children}
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>

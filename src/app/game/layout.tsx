@@ -10,7 +10,9 @@ export default function GameLayout({
 
   return (
     <div className="relative flex flex-col items-center justify-center h-svh w-full">
-      <SoundProvider soundPaths={soundFiles} volume={0.2}></SoundProvider>
+      {process.env.NODE_ENV !== "development" && (
+        <SoundProvider soundPaths={soundFiles} volume={0.5}></SoundProvider>
+      )}
       {children}
     </div>
   );

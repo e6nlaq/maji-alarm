@@ -1,26 +1,25 @@
 "use client";
 
-import { CircleXIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import useSound from "use-sound";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { isPrime } from "@/lib/prime";
 import { getRandomInt } from "@/lib/rand";
 
-type GameState = "idle" | "playing" | "result";
+type GameState = "idle" | "playing" | "loading";
 
 export default function PrimeGame() {
   const router = useRouter();
-  const [playWrongSound] = useSound("/sound/flash/wrong.mp3");
-  const [playCorrectSound] = useSound("/sound/flash/show.mp3");
+  const [playWrongSound] = useSound("/sound/game/wrong.mp3");
+  const [playCorrectSound] = useSound("/sound/game/correct.mp3");
 
   const [gameState, setGameState] = useState<GameState>("idle");
   const [targetNumber, setTargetNumber] = useState(0);
   const [userInput, setUserInput] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const startGame = () => {
     let newNumber: number;
@@ -29,7 +28,6 @@ export default function PrimeGame() {
     } while (isPrime(newNumber));
     setTargetNumber(newNumber);
     setUserInput("");
-    setErrorMessage("");
     setGameState("playing");
   };
 
@@ -39,15 +37,15 @@ export default function PrimeGame() {
 
     if (Number.isNaN(answer) || answer <= 1) {
       if (playWrongSound) playWrongSound();
-      setErrorMessage("2以上の整数を入力してください。");
-      setGameState("result");
+      toast.error("2以上の整数を入力してください。");
       return;
     }
 
     if (!isPrime(answer)) {
       if (playWrongSound) playWrongSound();
-      setErrorMessage(`${answer} は素数ではありません。`);
-      setGameState("result");
+      toast.error(`${answer} は素数ではありません。新しい数字でやり直します。`);
+      setGameState("loading");
+      setTimeout(startGame, 1500);
       return;
     }
 
@@ -56,15 +54,20 @@ export default function PrimeGame() {
       if (playCorrectSound) playCorrectSound();
 
       if (newTarget === 1) {
+        toast.success("クリア！おめでとうございます！");
         router.push("/gm");
         return;
       }
 
       setTargetNumber(newTarget);
+      toast.success(`正解！ ${answer} で割りました。`);
     } else {
       if (playWrongSound) playWrongSound();
-      setErrorMessage(`${targetNumber} は ${answer} で割り切れません。`);
-      setGameState("result");
+      toast.error(
+        `${targetNumber} は ${answer} で割り切れません。新しい数字でやり直します。`
+      );
+      setGameState("loading");
+      setTimeout(startGame, 1500);
     }
   };
 
@@ -82,6 +85,22 @@ export default function PrimeGame() {
 
   const renderGameState = () => {
     switch (gameState) {
+      case "loading":
+        return (
+          <div className="flex flex-col items-center gap-4">
+            <Skeleton className="h-24 w-48" />
+            <p>素数を入力して割ってください</p>
+            <Input
+              min={2}
+              inputMode="numeric"
+              className="text-center"
+              disabled
+            />
+            <Button className="cursor-pointer" disabled>
+              割る
+            </Button>
+          </div>
+        );
       case "playing":
         return (
           <div className="flex flex-col items-center gap-4">
@@ -90,7 +109,6 @@ export default function PrimeGame() {
             </div>
             <p>素数を入力して割ってください</p>
             <Input
-              type="number"
               min={2}
               inputMode="numeric"
               value={userInput}
@@ -101,19 +119,6 @@ export default function PrimeGame() {
             />
             <Button onClick={checkAnswer} className="cursor-pointer">
               割る
-            </Button>
-          </div>
-        );
-      case "result":
-        return (
-          <div className="flex flex-col items-center gap-4">
-            <Alert variant="destructive" className="w-full">
-              <CircleXIcon className="h-4 w-4" />
-              <AlertTitle>不正解...</AlertTitle>
-              <AlertDescription>{errorMessage}</AlertDescription>
-            </Alert>
-            <Button onClick={startGame} className="cursor-pointer">
-              もう一度挑戦
             </Button>
           </div>
         );
