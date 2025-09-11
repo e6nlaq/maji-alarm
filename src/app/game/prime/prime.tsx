@@ -1,7 +1,8 @@
 "use client";
 
+import localFont from "next/font/local";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import useSound from "use-sound";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,12 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { isPrime } from "@/lib/prime";
 import { getRandomInt } from "@/lib/rand";
+import { cn } from "@/lib/utils";
+
+const abacusFont = localFont({
+  src: "../../font/ABACUS2.woff2",
+  display: "swap",
+});
 
 type GameState = "idle" | "playing" | "loading";
 
@@ -22,10 +29,14 @@ export default function PrimeGame() {
   const [userInput, setUserInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (inputRef.current !== null) inputRef.current.focus();
+  });
+
   const startGame = () => {
     let newNumber: number;
     do {
-      newNumber = getRandomInt(20, 200);
+      newNumber = getRandomInt(10, 100);
     } while (isPrime(newNumber));
     setTargetNumber(newNumber);
     setUserInput("");
@@ -36,11 +47,9 @@ export default function PrimeGame() {
     const answer = parseInt(userInput, 10);
     setUserInput("");
 
-    inputRef.current?.focus();
     if (Number.isNaN(answer) || answer <= 1) {
       if (playWrongSound) playWrongSound();
       toast.error("2以上の整数を入力してください。");
-
       return;
     }
 
@@ -49,7 +58,6 @@ export default function PrimeGame() {
       toast.error(`${answer} は素数ではありません。新しい数字でやり直します。`);
       setGameState("loading");
       setTimeout(startGame, 1500);
-
       return;
     }
 
@@ -57,13 +65,13 @@ export default function PrimeGame() {
       const newTarget = targetNumber / answer;
       if (playCorrectSound) playCorrectSound();
 
-      setTargetNumber(newTarget);
       if (newTarget === 1) {
         toast.success("クリア！おめでとうございます！");
         router.push("/gm");
         return;
       }
 
+      setTargetNumber(newTarget);
       toast.success(`正解！ ${answer} で割りました。`);
     } else {
       if (playWrongSound) playWrongSound();
@@ -99,6 +107,7 @@ export default function PrimeGame() {
               inputMode="numeric"
               className="text-center"
               disabled
+              value={userInput}
             />
             <Button className="cursor-pointer" disabled>
               割る
@@ -108,7 +117,12 @@ export default function PrimeGame() {
       case "playing":
         return (
           <div className="flex flex-col items-center gap-4">
-            <div className="text-7xl font-bold text-green-500 h-24 flex items-center justify-center">
+            <div
+              className={cn(
+                "text-7xl font-bold text-green-500 h-24 flex items-center justify-center",
+                abacusFont.className
+              )}
+            >
               {targetNumber}
             </div>
             <p>素数を入力して割ってください</p>
