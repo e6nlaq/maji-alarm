@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getRandomInt } from "@/lib/rand";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 const TOTAL_NUMBERS = 6;
 const DURATION_SECONDS = 5;
@@ -25,9 +26,9 @@ type GameState = "idle" | "countdown" | "playing" | "input" | "result";
 
 export default function FlashGame() {
   const router = useRouter();
-  const [playCountdownSound] = useSound("/sound/flash/countdown.mp3");
-  const [playShowSound] = useSound("/sound/flash/show.mp3");
-  const [playWrongSound] = useSound("/sound/flash/wrong.mp3");
+  const [playCountdownSound] = useSound("/sound/game/countdown.mp3");
+  const [playShowSound] = useSound("/sound/game/show.mp3");
+  const [playWrongSound] = useSound("/sound/game/wrong.mp3");
   const [gameState, setGameState] = useState<GameState>("idle");
   const [numbers, setNumbers] = useState<number[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -98,6 +99,7 @@ export default function FlashGame() {
   const checkAnswer = () => {
     const answer = parseInt(userAnswer, 10);
     if (!Number.isNaN(answer) && answer === sum) {
+      toast.success("正解！おめでとうございます！");
       router.push("/gm");
     } else {
       if (playWrongSound) playWrongSound();
