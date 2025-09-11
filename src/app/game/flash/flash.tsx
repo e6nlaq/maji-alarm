@@ -109,7 +109,10 @@ export default function FlashGame() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (/^[0-9]+$/.test(e.target.value) || e.target.value === "") {
+    if (
+      /^[0-9]+$/.test(e.target.value) ||
+      (e.target.value === "" && e.target.value.length <= 3)
+    ) {
       setUserAnswer(e.target.value);
     }
   };
