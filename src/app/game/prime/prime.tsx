@@ -36,7 +36,7 @@ export default function PrimeGame() {
   const startGame = () => {
     let newNumber: number;
     do {
-      newNumber = getRandomInt(10, 100);
+      newNumber = getRandomInt(10, 300);
     } while (isPrime(newNumber));
     setTargetNumber(newNumber);
     setUserInput("");
