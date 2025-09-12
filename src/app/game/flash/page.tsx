@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HowToPlay from "@/components/how-to-play";
+import GamePageLayout from "@/components/game-page-layout";
 import type { GameData } from "@/types/game";
 import FlashGame from "./flash";
 
@@ -15,9 +15,8 @@ export const metadata: Metadata = {
 
 export default function Flash() {
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-full p-2 sm:p-8 md:p-16 lg:p-32 w-full">
-      <HowToPlay gameData={gameData} />
+    <GamePageLayout gameData={gameData}>
       <FlashGame />
-    </div>
+    </GamePageLayout>
   );
 }
