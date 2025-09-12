@@ -29,6 +29,7 @@ export default function FlashGame() {
   const [playCountdownSound] = useSound("/sound/game/countdown.mp3");
   const [playShowSound] = useSound("/sound/game/show.mp3");
   const [playWrongSound] = useSound("/sound/game/wrong.mp3");
+  const [playCorrectSound] = useSound("/sound/game/correct.mp3");
   const [gameState, setGameState] = useState<GameState>("idle");
   const [numbers, setNumbers] = useState<number[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -99,6 +100,7 @@ export default function FlashGame() {
   const checkAnswer = () => {
     const answer = parseInt(userAnswer, 10);
     if (!Number.isNaN(answer) && answer === sum) {
+      if (playCorrectSound) playCorrectSound();
       toast.success("正解！おめでとうございます！");
       router.push("/gm");
     } else {
