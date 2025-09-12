@@ -1,8 +1,24 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect } from "react";
+import useSound from "use-sound";
 
 export const dynamic = "force-dynamic";
 
 export default function GoodMorning() {
+  const [play] = useSound("/sound/chicken.mp3");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (play) {
+        play();
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [play]);
+
   const time = new Date();
   const dateOptions: Intl.DateTimeFormatOptions = {
     month: "long",
