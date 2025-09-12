@@ -63,6 +63,7 @@ export default function PrimeGame() {
 
     if (targetNumber % answer === 0) {
       const newTarget = targetNumber / answer;
+      setTargetNumber(newTarget);
       if (playCorrectSound) playCorrectSound();
 
       if (newTarget === 1) {
@@ -71,7 +72,6 @@ export default function PrimeGame() {
         return;
       }
 
-      setTargetNumber(newTarget);
       toast.success(`正解！ ${answer} で割りました。`);
     } else {
       if (playWrongSound) playWrongSound();
