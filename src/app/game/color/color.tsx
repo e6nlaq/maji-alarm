@@ -144,20 +144,27 @@ export default function ColorGame() {
   const handleAnswer = (answer: boolean | null) => {
     if (gameState !== "playing") return;
 
-    const correct = answer === question?.isMatch;
-
-    if (correct) {
-      if (playCorrectSound) playCorrectSound();
-      const newStreak = streak + 1;
-      setStreak(newStreak);
-      setIsCorrect(true);
-      if (newStreak >= WINNING_STREAK) {
-        setGameWon(true);
-      }
-    } else {
+    if (answer === null) {
+      // 時間切れの場合
       if (playWrongSound) playWrongSound();
       setStreak(0);
-      setIsCorrect(false);
+      setIsCorrect(null);
+    } else {
+      // ユーザーが回答した場合
+      const correct = answer === question?.isMatch;
+      if (correct) {
+        if (playCorrectSound) playCorrectSound();
+        const newStreak = streak + 1;
+        setStreak(newStreak);
+        setIsCorrect(true);
+        if (newStreak >= WINNING_STREAK) {
+          setGameWon(true);
+        }
+      } else {
+        if (playWrongSound) playWrongSound();
+        setStreak(0);
+        setIsCorrect(false);
+      }
     }
     setGameState("result");
   };
