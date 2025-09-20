@@ -21,7 +21,7 @@ const COLORS = [
   { jpName: "緑", className: "text-green-500" },
   { jpName: "黄", className: "text-yellow-500" },
   { jpName: "紫", className: "text-purple-500" },
-  { jpName: "オレンジ", className: "text-orange-500" },
+  { jpName: "橙", className: "text-orange-500" },
 ];
 
 type GameState = "idle" | "countdown" | "playing" | "result";
@@ -48,6 +48,7 @@ export default function ColorGame() {
   useEffect(() => {
     if (gameState !== "countdown") return;
 
+    if (playCountdownSound && countdown === 3) playCountdownSound();
     if (countdown > 0) {
       const timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
       return () => clearTimeout(timer);
