@@ -14,7 +14,7 @@ export default function GoodMorning() {
       if (play) {
         play();
       }
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [play]);

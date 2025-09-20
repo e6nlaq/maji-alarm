@@ -43,8 +43,10 @@ export default function ColorGame() {
   const [countdown, setCountdown] = useState(NEXT_QUESTION_COUNTDOWN_SECONDS);
   const [streak, setStreak] = useState(0);
   const [timeLeft, setTimeLeft] = useState(ANSWER_TIMEOUT_MS);
+  const [isGameWon, setGameWon] = useState(false);
 
   // Countdown timer before each question
+  // biome-ignore lint/correctness/useExhaustiveDependencies: off
   useEffect(() => {
     if (gameState !== "countdown") return;
 
@@ -61,6 +63,7 @@ export default function ColorGame() {
   }, [gameState, countdown]);
 
   // 1-second timer to answer the question
+  // biome-ignore lint/correctness/useExhaustiveDependencies: off
   useEffect(() => {
     if (gameState !== "playing") return;
 
@@ -81,8 +84,7 @@ export default function ColorGame() {
     if (gameState !== "result") return;
 
     const timer = setTimeout(() => {
-      if (streak >= WINNING_STREAK) {
-        if (playCorrectSound) playCorrectSound();
+      if (isGameWon) {
         toast.success("クリア！おめでとうございます！");
         router.push("/gm");
       } else {
@@ -92,12 +94,13 @@ export default function ColorGame() {
     }, RESULT_DISPLAY_MS);
 
     return () => clearTimeout(timer);
-  }, [gameState, streak, router, playCorrectSound]);
+  }, [gameState, isGameWon, router]);
 
   const startGame = () => {
     if (playCountdownSound) playCountdownSound();
     setStreak(0);
     setIsCorrect(null);
+    setGameWon(false);
     setCountdown(NEXT_QUESTION_COUNTDOWN_SECONDS);
     setGameState("countdown");
   };
@@ -129,8 +132,12 @@ export default function ColorGame() {
 
     if (correct) {
       if (playCorrectSound) playCorrectSound();
-      setStreak((prev) => prev + 1);
+      const newStreak = streak + 1;
+      setStreak(newStreak);
       setIsCorrect(true);
+      if (newStreak >= WINNING_STREAK) {
+        setGameWon(true);
+      }
     } else {
       if (playWrongSound) playWrongSound();
       setStreak(0);

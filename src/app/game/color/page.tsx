@@ -4,9 +4,9 @@ import type { GameData } from "@/types/game";
 import ColorGame from "./color";
 
 const gameData: GameData = {
-  title: "色合わせゲーム",
+  title: "カラーマッチ",
   description:
-    "文字の意味と色が一致しているかを判断するゲームです。脳を刺激して目を覚ましましょう！",
+    "色の名前が表示されます。色の名前と表示されている色が一致するかを判断してください。",
 };
 
 export const metadata: Metadata = {
