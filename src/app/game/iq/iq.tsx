@@ -2,11 +2,11 @@
 
 import { CheckCircleIcon, CircleXIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import useSound from "use-sound";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { getRandomInt } from "@/lib/rand";
 
@@ -52,6 +52,12 @@ export default function IqGame() {
   const [playCountdownSound] = useSound("/sound/game/countdown.mp3");
   const [playWrongSound] = useSound("/sound/game/wrong.mp3");
   const [playCorrectSound] = useSound("/sound/game/correct.mp3");
+  const [playTimerSound, { stop: stopTimerSound }] = useSound(
+    "/sound/game/timer.mp3",
+    {
+      loop: true,
+    },
+  );
 
   const [gameState, setGameState] = useState<GameState>("idle");
   const [gridData, setGridData] = useState<string[][]>([]);
@@ -141,6 +147,18 @@ export default function IqGame() {
       router.push("/gm");
     }
   }, [gameState, isCorrect, router]);
+
+  // BGMの再生・停止
+  useEffect(() => {
+    if (gameState === "playing") {
+      playTimerSound();
+    } else {
+      stopTimerSound();
+    }
+    return () => {
+      stopTimerSound();
+    };
+  }, [gameState, playTimerSound, stopTimerSound]);
 
   const renderGameState = () => {
     switch (gameState) {
