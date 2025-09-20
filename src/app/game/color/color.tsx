@@ -33,7 +33,7 @@ type Question = {
 
 export default function ColorGame() {
   const router = useRouter();
-  const [playCountdownSound] = useSound("/sound/game/countdown.mp3");
+  const [playCountdownSound] = useSound("/sound/game/show.mp3");
   const [playWrongSound] = useSound("/sound/game/wrong.mp3");
   const [playCorrectSound] = useSound("/sound/game/correct.mp3");
 
@@ -48,7 +48,7 @@ export default function ColorGame() {
   useEffect(() => {
     if (gameState !== "countdown") return;
 
-    if (playCountdownSound && countdown === 3) playCountdownSound();
+    if (playCountdownSound) playCountdownSound();
     if (countdown > 0) {
       const timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
       return () => clearTimeout(timer);
