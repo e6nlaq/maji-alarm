@@ -15,7 +15,7 @@ const ANSWER_TIMEOUT_MS = 700;
 const NEXT_QUESTION_COUNTDOWN_SECONDS = 3;
 const RESULT_DISPLAY_MS = 1500;
 
-const COLORS = [
+const PLAYABLE_COLORS = [
   { jpName: "赤", className: "text-red-500" },
   { jpName: "青", className: "text-blue-500" },
   { jpName: "緑", className: "text-green-500" },
@@ -25,6 +25,7 @@ const COLORS = [
   { jpName: "桃", className: "text-pink-500" },
   { jpName: "灰", className: "text-gray-500" },
 ];
+const TEXT_ONLY_COLORS = [{ jpName: "白" }, { jpName: "黒" }];
 
 type GameState = "idle" | "countdown" | "playing" | "result";
 type Question = {
@@ -108,23 +109,39 @@ export default function ColorGame() {
   };
 
   const generateQuestion = () => {
-    const shouldMatch = Math.random() > 0.5;
-    const textIndex = getRandomInt(0, COLORS.length - 1);
-    let colorIndex: number;
+    const useTextOnlyColor = Math.random() < 0.2;
 
-    if (shouldMatch) {
-      colorIndex = textIndex;
+    if (useTextOnlyColor) {
+      // 20% chance
+
+      // Always a non-match
+      const textIndex = getRandomInt(0, TEXT_ONLY_COLORS.length - 1);
+      const colorIndex = getRandomInt(0, PLAYABLE_COLORS.length - 1);
+      setQuestion({
+        text: TEXT_ONLY_COLORS[textIndex].jpName,
+        textColorClass: PLAYABLE_COLORS[colorIndex].className,
+        isMatch: false,
+      });
     } else {
-      do {
-        colorIndex = getRandomInt(0, COLORS.length - 1);
-      } while (colorIndex === textIndex);
-    }
+      // 50/50 chance of match from playable colors
+      const shouldMatch = Math.random() > 0.5;
+      const textIndex = getRandomInt(0, PLAYABLE_COLORS.length - 1);
+      let colorIndex: number;
 
-    setQuestion({
-      text: COLORS[textIndex].jpName,
-      textColorClass: COLORS[colorIndex].className,
-      isMatch: shouldMatch,
-    });
+      if (shouldMatch) {
+        colorIndex = textIndex;
+      } else {
+        do {
+          colorIndex = getRandomInt(0, PLAYABLE_COLORS.length - 1);
+        } while (colorIndex === textIndex);
+      }
+
+      setQuestion({
+        text: PLAYABLE_COLORS[textIndex].jpName,
+        textColorClass: PLAYABLE_COLORS[colorIndex].className,
+        isMatch: shouldMatch,
+      });
+    }
   };
 
   const handleAnswer = (answer: boolean | null) => {
