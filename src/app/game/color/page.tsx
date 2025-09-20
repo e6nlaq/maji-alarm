@@ -5,8 +5,7 @@ import ColorGame from "./color";
 
 const gameData: GameData = {
   title: "カラーマッチ",
-  description:
-    "色の名前が表示されます。色の名前と表示されている色が一致するかを判断してください。",
+  description: `色の名前が表示されます。色の名前と表示されている色が一致するかを判断してください。5問連続正解でクリアできます。`,
 };
 
 export const metadata: Metadata = {

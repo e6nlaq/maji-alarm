@@ -218,7 +218,9 @@ export default function ColorGame() {
                   : "連続正解がリセットされました。"}
               </AlertDescription>
             </Alert>
-            <p className="font-bold text-xl">次の問題の準備をしています...</p>
+            <p className="font-bold sm:text-xl">
+              次の問題の準備をしています...
+            </p>
           </div>
         );
       default:
