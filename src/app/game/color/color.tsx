@@ -48,18 +48,16 @@ export default function ColorGame() {
   useEffect(() => {
     if (gameState !== "countdown") return;
 
-    if (playCountdownSound) playCountdownSound();
+    if (playCountdownSound && countdown > 0) playCountdownSound();
+
     if (countdown > 0) {
       const timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
       return () => clearTimeout(timer);
     }
-    // When countdown is over, start the game
-    const startTimer = setTimeout(() => {
-      generateQuestion();
-      setGameState("playing");
-      setTimeLeft(ANSWER_TIMEOUT_MS);
-    }, 1000); // Show "Start!" for 1 second
-    return () => clearTimeout(startTimer);
+    // When countdown is over, start the game immediately
+    generateQuestion();
+    setGameState("playing");
+    setTimeLeft(ANSWER_TIMEOUT_MS);
   }, [gameState, countdown]);
 
   // 1-second timer to answer the question
@@ -146,7 +144,7 @@ export default function ColorGame() {
       case "countdown":
         return (
           <div className="flex items-center justify-center md:text-9xl text-7xl font-bold h-48">
-            {countdown > 0 ? countdown : "Start!"}
+            {countdown > 0 && countdown}
           </div>
         );
       case "playing":
