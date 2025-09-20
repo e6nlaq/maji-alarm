@@ -155,11 +155,5 @@ export default function PrimeGame() {
     }
   };
 
-  return (
-    <div className="w-full h-full flex flex-col items-center gap-8">
-      <div className="w-full h-full p-8 border rounded-lg shadow-lg bg-card text-card-foreground min-h-[250px] flex items-center justify-center">
-        {renderGameState()}
-      </div>
-    </div>
-  );
+  return renderGameState();
 }

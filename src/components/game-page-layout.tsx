@@ -13,7 +13,11 @@ export default function GamePageLayout({
   return (
     <div className="relative flex flex-col items-center justify-center min-h-full p-2 sm:p-8 md:p-16 lg:p-32 w-full">
       <HowToPlay gameData={gameData} />
-      {children}
+      <div className="w-full h-full flex flex-col items-center gap-8">
+        <div className="w-full h-full p-8 border rounded-lg shadow-lg bg-card text-card-foreground min-h-[250px] flex items-center justify-center">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }
