@@ -109,37 +109,34 @@ export default function ColorGame() {
   };
 
   const generateQuestion = () => {
-    const useTextOnlyColor = Math.random() < 0.2;
+    const shouldMatch = Math.random() > 0.5;
 
-    if (useTextOnlyColor) {
-      // 20% chance
-
-      // Always a non-match
-      const textIndex = getRandomInt(0, TEXT_ONLY_COLORS.length - 1);
-      const colorIndex = getRandomInt(0, PLAYABLE_COLORS.length - 1);
+    if (shouldMatch) {
+      // Pick a matching color from the playable list
+      const index = getRandomInt(0, PLAYABLE_COLORS.length - 1);
       setQuestion({
-        text: TEXT_ONLY_COLORS[textIndex].jpName,
-        textColorClass: PLAYABLE_COLORS[colorIndex].className,
-        isMatch: false,
+        text: PLAYABLE_COLORS[index].jpName,
+        textColorClass: PLAYABLE_COLORS[index].className,
+        isMatch: true,
       });
     } else {
-      // 50/50 chance of match from playable colors
-      const shouldMatch = Math.random() > 0.5;
-      const textIndex = getRandomInt(0, PLAYABLE_COLORS.length - 1);
-      let colorIndex: number;
+      // Pick a non-matching combination
+      const allColorNames = [
+        ...PLAYABLE_COLORS.map((c) => c.jpName),
+        ...TEXT_ONLY_COLORS.map((c) => c.jpName),
+      ];
+      const text = allColorNames[getRandomInt(0, allColorNames.length - 1)];
 
-      if (shouldMatch) {
-        colorIndex = textIndex;
-      } else {
-        do {
-          colorIndex = getRandomInt(0, PLAYABLE_COLORS.length - 1);
-        } while (colorIndex === textIndex);
-      }
+      let colorIndex: number;
+      do {
+        colorIndex = getRandomInt(0, PLAYABLE_COLORS.length - 1);
+        // Keep re-picking if the color name accidentally matches the text
+      } while (PLAYABLE_COLORS[colorIndex].jpName === text);
 
       setQuestion({
-        text: PLAYABLE_COLORS[textIndex].jpName,
+        text: text,
         textColorClass: PLAYABLE_COLORS[colorIndex].className,
-        isMatch: shouldMatch,
+        isMatch: false,
       });
     }
   };
