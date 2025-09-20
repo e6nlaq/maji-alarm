@@ -48,7 +48,7 @@ export default function ColorGame() {
   const [timeLeft, setTimeLeft] = useState(ANSWER_TIMEOUT_MS);
   const [isGameWon, setGameWon] = useState(false);
 
-  // Countdown timer before each question
+  // 各問題の前のカウントダウンタイマー
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
   useEffect(() => {
     if (gameState !== "countdown") return;
@@ -59,20 +59,20 @@ export default function ColorGame() {
       const timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
       return () => clearTimeout(timer);
     }
-    // When countdown is over, start the game immediately
+    // カウントダウンが終了したら、すぐにゲームを開始する
     generateQuestion();
     setGameState("playing");
     setTimeLeft(ANSWER_TIMEOUT_MS);
   }, [gameState, countdown]);
 
-  // 1-second timer to answer the question
+  // 問題に解答するためのタイマー
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
   useEffect(() => {
     if (gameState !== "playing") return;
 
     const timer = setTimeout(() => {
       if (timeLeft <= 0) {
-        // Time's up
+        // 時間切れ
         handleAnswer(null);
       } else {
         setTimeLeft(timeLeft - 10);
@@ -82,18 +82,18 @@ export default function ColorGame() {
     return () => clearTimeout(timer);
   }, [gameState, timeLeft]);
 
-  // Timer to display result before starting next countdown
+  // 次のカウントダウンを開始する前に結果を表示するためのタイマー
   useEffect(() => {
     if (gameState !== "result") return;
 
+    if (isGameWon) {
+      toast.success("クリア！おめでとうございます！");
+      router.push("/gm");
+    }
+
     const timer = setTimeout(() => {
-      if (isGameWon) {
-        toast.success("クリア！おめでとうございます！");
-        router.push("/gm");
-      } else {
-        setCountdown(NEXT_QUESTION_COUNTDOWN_SECONDS);
-        setGameState("countdown");
-      }
+      setCountdown(NEXT_QUESTION_COUNTDOWN_SECONDS);
+      setGameState("countdown");
     }, RESULT_DISPLAY_MS);
 
     return () => clearTimeout(timer);
@@ -112,7 +112,7 @@ export default function ColorGame() {
     const shouldMatch = Math.random() > 0.5;
 
     if (shouldMatch) {
-      // Pick a matching color from the playable list
+      // 表示可能な色のリストから一致する色を選択
       const index = getRandomInt(0, PLAYABLE_COLORS.length - 1);
       setQuestion({
         text: PLAYABLE_COLORS[index].jpName,
@@ -120,7 +120,7 @@ export default function ColorGame() {
         isMatch: true,
       });
     } else {
-      // Pick a non-matching combination
+      // 一致しない組み合わせを選択
       const allColorNames = [
         ...PLAYABLE_COLORS.map((c) => c.jpName),
         ...TEXT_ONLY_COLORS.map((c) => c.jpName),
@@ -130,7 +130,7 @@ export default function ColorGame() {
       let colorIndex: number;
       do {
         colorIndex = getRandomInt(0, PLAYABLE_COLORS.length - 1);
-        // Keep re-picking if the color name accidentally matches the text
+        // 色名がテキストと偶然一致した場合は、再選択を続ける
       } while (PLAYABLE_COLORS[colorIndex].jpName === text);
 
       setQuestion({
