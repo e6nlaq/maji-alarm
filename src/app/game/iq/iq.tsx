@@ -2,7 +2,7 @@
 
 import { CheckCircleIcon, CircleXIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import useSound from "use-sound";
 
@@ -12,27 +12,42 @@ import { getRandomInt } from "@/lib/rand";
 
 const GRID_SIZE = 6; // グリッドサイズ (6x6)
 const TIME_LIMIT_MS = 7000; // 制限時間 (7秒)
-const RESULT_DISPLAY_MS = 1500;
 
 const EMOJI_PAIRS = [
-  { base: "😊", target: "🙂" },
-  { base: "😄", target: "😃" },
-  { base: "☀️", target: "🌞" },
+  { base: "😊", target: "☺️" },
   { base: "❤️", target: "🩷" },
-  { base: "👍", target: "👍🏻" },
-  { base: "✈️", target: "🚀" },
-  { base: "🍎", target: "🍏" },
-  { base: "🐈", target: "🐈‍⬛" },
-  { base: "🥲", target: "😂" },
-  { base: "🤔", target: "🧐" },
-  { base: "👀", target: "👁️" },
-  { base: "✨", target: "🌟" },
+
+  { base: "千", target: "干" },
+  { base: "正", target: "止" },
 ];
 
 type GameState = "idle" | "countdown" | "playing" | "result";
 type TargetPosition = { row: number; col: number };
 
-export default function EmojiGame() {
+// パフォーマンス向上のため、ボタンをメモ化する
+const EmojiButton = memo(function EmojiButton({
+  rowIndex,
+  colIndex,
+  emoji,
+  onClick,
+}: {
+  rowIndex: number;
+  colIndex: number;
+  emoji: string;
+  onClick: (row: number, col: number) => void;
+}) {
+  return (
+    <Button
+      variant="outline"
+      className="aspect-square h-auto w-full p-1 text-2xl md:text-4xl"
+      onClick={() => onClick(rowIndex, colIndex)}
+    >
+      {emoji}
+    </Button>
+  );
+});
+
+export default function IqGame() {
   const router = useRouter();
   const [playCountdownSound] = useSound("/sound/game/countdown.mp3");
   const [playWrongSound] = useSound("/sound/game/wrong.mp3");
@@ -71,6 +86,28 @@ export default function EmojiGame() {
     setGameState("countdown");
   };
 
+  // 絵文字クリック時の処理（useCallbackでメモ化）
+  const handleEmojiClick = useCallback(
+    (row: number, col: number) => {
+      if (gameState !== "playing") return;
+
+      if (row === targetPosition?.row && col === targetPosition?.col) {
+        if (playCorrectSound) playCorrectSound();
+        setIsCorrect(true);
+      } else if (row === -1 && col === -1) {
+        // 時間切れ
+        if (playWrongSound) playWrongSound();
+        setIsCorrect(null);
+      } else {
+        // 不正解
+        if (playWrongSound) playWrongSound();
+        setIsCorrect(false);
+      }
+      setGameState("result");
+    },
+    [gameState, targetPosition, playCorrectSound, playWrongSound]
+  );
+
   // カウントダウンタイマー
   useEffect(() => {
     if (gameState !== "countdown") return;
@@ -86,7 +123,6 @@ export default function EmojiGame() {
   }, [gameState, countdown]);
 
   // 制限時間タイマー
-  // biome-ignore lint/correctness/useExhaustiveDependencies: off
   useEffect(() => {
     if (gameState !== "playing") return;
     if (timeLeft <= 0) {
@@ -95,38 +131,16 @@ export default function EmojiGame() {
     }
     const timer = setTimeout(() => setTimeLeft((prev) => prev - 50), 50);
     return () => clearTimeout(timer);
-  }, [gameState, timeLeft]);
+  }, [gameState, timeLeft, handleEmojiClick]);
 
   // 結果表示後の処理
   useEffect(() => {
     if (gameState !== "result") return;
     if (isCorrect) {
-      const timer = setTimeout(() => {
-        toast.success("クリア！おめでとうございます！");
-        router.push("/gm");
-      }, RESULT_DISPLAY_MS);
-      return () => clearTimeout(timer);
+      toast.success("クリア！おめでとうございます！");
+      router.push("/gm");
     }
   }, [gameState, isCorrect, router]);
-
-  // 絵文字クリック時の処理
-  const handleEmojiClick = (row: number, col: number) => {
-    if (gameState !== "playing") return;
-
-    if (row === targetPosition?.row && col === targetPosition?.col) {
-      if (playCorrectSound) playCorrectSound();
-      setIsCorrect(true);
-    } else if (row === -1 && col === -1) {
-      // 時間切れ
-      if (playWrongSound) playWrongSound();
-      setIsCorrect(null);
-    } else {
-      // 不正解
-      if (playWrongSound) playWrongSound();
-      setIsCorrect(false);
-    }
-    setGameState("result");
-  };
 
   const renderGameState = () => {
     switch (gameState) {
@@ -145,17 +159,16 @@ export default function EmojiGame() {
             >
               {gridData.map((row, rowIndex) =>
                 row.map((emoji, colIndex) => (
-                  <Button
+                  <EmojiButton
                     key={`${rowIndex}-${
                       // biome-ignore lint/suspicious/noArrayIndexKey: none
                       colIndex
                     }`}
-                    variant="outline"
-                    className="aspect-square h-auto w-full p-1 text-2xl md:text-4xl"
-                    onClick={() => handleEmojiClick(rowIndex, colIndex)}
-                  >
-                    {emoji}
-                  </Button>
+                    rowIndex={rowIndex}
+                    colIndex={colIndex}
+                    emoji={emoji}
+                    onClick={handleEmojiClick}
+                  />
                 ))
               )}
             </div>
@@ -187,9 +200,7 @@ export default function EmojiGame() {
                     : "不正解..."}
               </AlertTitle>
             </Alert>
-            {isCorrect ? (
-              <p className="text-xl font-bold">クリア処理中です...</p>
-            ) : (
+            {isCorrect ? null : (
               <Button onClick={startGame} className="cursor-pointer">
                 もう一度挑戦
               </Button>
@@ -198,9 +209,12 @@ export default function EmojiGame() {
         );
       default:
         return (
-          <Button onClick={startGame} size="lg" className="cursor-pointer">
-            スタート
-          </Button>
+          <div className="flex w-full max-w-md flex-col items-center gap-4">
+            <h1 className="sm:text-7xl text-5xl font-bold">IQ150</h1>
+            <Button onClick={startGame} size="lg" className="cursor-pointer">
+              スタート
+            </Button>
+          </div>
         );
     }
   };

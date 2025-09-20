@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
 import GamePageLayout from "@/components/game-page-layout";
 import type { GameData } from "@/types/game";
-import EmojiGame from "./emoji";
+import IqGame from "./iq";
 
 const gameData: GameData = {
-  title: "絵文字探し",
+  title: "IQ150",
   description:
-    "たくさんの同じ絵文字の中から、一つだけ違う絵文字を素早く見つけてタップするゲームです。一回でも正解すればクリアです。",
+    "たくさんの同じ文字の中から、一つだけ違う文字を素早く見つけてください。",
 };
 
 export const metadata: Metadata = {
   title: gameData.title,
 };
 
-export default function EmojiPage() {
+export default function IqPage() {
   return (
     <GamePageLayout gameData={gameData}>
-      <EmojiGame />
+      <IqGame />
     </GamePageLayout>
   );
 }
