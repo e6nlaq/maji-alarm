@@ -22,6 +22,8 @@ const COLORS = [
   { jpName: "黄", className: "text-yellow-500" },
   { jpName: "紫", className: "text-purple-500" },
   { jpName: "橙", className: "text-orange-500" },
+  { jpName: "桃", className: "text-pink-500" },
+  { jpName: "灰", className: "text-gray-500" },
 ];
 
 type GameState = "idle" | "countdown" | "playing" | "result";
