@@ -98,6 +98,10 @@ export default function SequenceGame() {
   const handlePanelClick = (panelId: string) => {
     if (gameState !== "playing") return;
 
+    // パネルを一時的に光らせる
+    setLitPanel(panelId);
+    setTimeout(() => setLitPanel(null), 150);
+
     const newPlayerSequence = [...playerSequence, panelId];
 
     if (playShowSound) playShowSound();
