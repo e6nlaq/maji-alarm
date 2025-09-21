@@ -16,7 +16,7 @@ export default function HowToPlay({ gameData }: { gameData: GameData }) {
   return (
     <Dialog defaultOpen>
       <DialogContent
-        className="dark:bg-background/25 bg-background/65 backdrop-blur-lg"
+        className="dark:bg-background/25 bg-background/80 backdrop-blur-lg"
         onInteractOutside={(e) => {
           e.preventDefault();
         }}
