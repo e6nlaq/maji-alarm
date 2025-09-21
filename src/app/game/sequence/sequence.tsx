@@ -106,6 +106,7 @@ export default function SequenceGame() {
     if (sequence[newPlayerSequence.length - 1] !== panelId) {
       // 入力が正しいかチェック
       if (playWrongSound) playWrongSound();
+      toast.error("不正解...");
       setIsCorrect(false);
       setIsInputEnabled(false);
       setGameState("result");
@@ -119,6 +120,7 @@ export default function SequenceGame() {
       // シーケンスを最後まで入力したかチェック
       setIsInputEnabled(false);
       if (playCorrectSound) playCorrectSound();
+      toast.success("正解！");
       if (round >= WINNING_LEVEL) {
         setIsCorrect(true);
         setGameState("result");

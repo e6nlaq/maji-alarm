@@ -149,6 +149,7 @@ export default function ColorGame() {
       if (playWrongSound) playWrongSound();
       setStreak(0);
       setIsCorrect(null);
+      toast.error("時間切れ...");
     } else {
       // ユーザーが回答した場合
       const correct = answer === question?.isMatch;
@@ -157,6 +158,7 @@ export default function ColorGame() {
         const newStreak = streak + 1;
         setStreak(newStreak);
         setIsCorrect(true);
+        toast.success("正解！");
         if (newStreak >= WINNING_STREAK) {
           setGameWon(true);
         }
@@ -164,6 +166,7 @@ export default function ColorGame() {
         if (playWrongSound) playWrongSound();
         setStreak(0);
         setIsCorrect(false);
+        toast.error("不正解...");
       }
     }
     setGameState("result");
