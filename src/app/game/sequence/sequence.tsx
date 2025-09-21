@@ -149,16 +149,18 @@ export default function SequenceGame() {
             </Button>
           </div>
         );
-      case "result":
+      case 'result':
         return (
           <div className="flex w-full max-w-md flex-col items-center gap-4">
-            <Alert variant={isCorrect ? "default" : "destructive"}>
-              <AlertTitle>{isCorrect ? "クリア！" : "不正解..."}</AlertTitle>
-            </Alert>
-            {!isCorrect && (
-              <Button onClick={startGame} className="cursor-pointer">
-                もう一度挑戦
-              </Button>
+            {isCorrect ? (
+              <h2 className="text-5xl font-bold text-green-500">クリア！</h2>
+            ) : (
+              <div className="flex flex-col items-center gap-4">
+                <h2 className="text-5xl font-bold text-red-500">不正解...</h2>
+                <Button onClick={startGame} className="cursor-pointer">
+                  もう一度挑戦
+                </Button>
+              </div>
             )}
           </div>
         );
@@ -166,6 +168,11 @@ export default function SequenceGame() {
         return (
           <div className="flex flex-col items-center gap-4">
             <p className="text-2xl font-bold">Round {round}</p>
+            <div className="h-8">
+              {gameState === "presenting" && (
+                <p className="text-xl">覚えて！</p>
+              )}
+            </div>
             <div className="grid grid-cols-2 gap-4">
               {PANELS.map((panel) => (
                 <button
