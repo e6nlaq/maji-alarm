@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import useSound from "use-sound";
 
-import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { getRandomInt } from "@/lib/rand";
 import { cn } from "@/lib/utils";
@@ -129,15 +128,13 @@ export default function SequenceGame() {
     }
     setLitPanel(panelId);
     setTimeout(() => setLitPanel(null), 150);
-
-
   };
 
   // ゲームクリア時の処理
   useEffect(() => {
     if (isCorrect) {
-        toast.success("クリア！おめでとうございます！");
-        router.push("/gm");
+      toast.success("クリア！おめでとうございます！");
+      router.push("/gm");
     }
   }, [isCorrect, router]);
 
@@ -152,7 +149,7 @@ export default function SequenceGame() {
             </Button>
           </div>
         );
-      case 'result':
+      case "result":
         return (
           <div className="flex w-full max-w-md flex-col items-center gap-4">
             {isCorrect ? (
