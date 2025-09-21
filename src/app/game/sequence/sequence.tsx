@@ -97,10 +97,6 @@ export default function SequenceGame() {
   const handlePanelClick = (panelId: string) => {
     if (gameState !== "playing") return;
 
-    // パネルを一時的に光らせる
-    setLitPanel(panelId);
-    setTimeout(() => setLitPanel(null), 150);
-
     const newPlayerSequence = [...playerSequence, panelId];
 
     if (playShowSound) playShowSound();
@@ -114,6 +110,10 @@ export default function SequenceGame() {
     }
 
     setPlayerSequence(newPlayerSequence);
+    // パネルを一時的に光らせる
+    setLitPanel(panelId);
+    setTimeout(() => setLitPanel(null), 150);
+
 
     if (newPlayerSequence.length === sequence.length) {
       // シーケンスを最後まで入力したかチェック
@@ -130,8 +130,8 @@ export default function SequenceGame() {
   // ゲームクリア時の処理
   useEffect(() => {
     if (isCorrect) {
-      toast.success("クリア！おめでとうございます！");
-      router.push("/gm");
+        toast.success("クリア！おめでとうございます！");
+        router.push("/gm");
     }
   }, [isCorrect, router]);
 
