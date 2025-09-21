@@ -6,7 +6,7 @@ import SequenceGame from "./sequence";
 const gameData: GameData = {
   title: "順番記憶",
   description:
-    "光るパネルの順番を記憶し、その通りに再現するゲームです。5ラウンドクリアでアラームを解除できます。",
+    "光るパネルの順番を記憶し、その通りにボタンを押してください。5回連続正解でクリアです。",
 };
 
 export const metadata: Metadata = {
