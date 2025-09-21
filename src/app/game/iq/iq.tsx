@@ -2,7 +2,7 @@
 
 import { CheckCircleIcon, CircleXIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import useSound from "use-sound";
 
@@ -67,7 +67,7 @@ export default function IqGame() {
     "/sound/game/timer.mp3",
     {
       loop: true,
-    },
+    }
   );
 
   const [gameState, setGameState] = useState<GameState>("idle");

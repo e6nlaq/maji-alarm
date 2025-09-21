@@ -1,36 +1,35 @@
-'use client';
+"use client";
 
-import { CheckCircleIcon, CircleXIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'sonner';
-import useSound from 'use-sound';
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
+import useSound from "use-sound";
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { getRandomInt } from '@/lib/rand';
-import { cn } from '@/lib/utils';
+import { Alert, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { getRandomInt } from "@/lib/rand";
+import { cn } from "@/lib/utils";
 
 const PANELS = [
-  { id: 'red', color: 'bg-red-500', litColor: 'bg-red-400' },
-  { id: 'green', color: 'bg-green-500', litColor: 'bg-green-400' },
-  { id: 'blue', color: 'bg-blue-500', litColor: 'bg-blue-400' },
-  { id: 'yellow', color: 'bg-yellow-500', litColor: 'bg-yellow-400' },
+  { id: "red", color: "bg-red-500", litColor: "bg-red-400" },
+  { id: "green", color: "bg-green-500", litColor: "bg-green-400" },
+  { id: "blue", color: "bg-blue-500", litColor: "bg-blue-400" },
+  { id: "yellow", color: "bg-yellow-500", litColor: "bg-yellow-400" },
 ];
 
 const WINNING_LEVEL = 5;
 const PRESENTATION_INTERVAL_MS = 500; // パネルが光る間隔
 const LIT_DURATION_MS = 300; // パネルが光っている時間
 
-type GameState = 'idle' | 'presenting' | 'playing' | 'result';
+type GameState = "idle" | "presenting" | "playing" | "result";
 
 export default function SequenceGame() {
   const router = useRouter();
-  const [playShowSound] = useSound('/sound/game/show.mp3');
-  const [playWrongSound] = useSound('/sound/game/wrong.mp3');
-  const [playCorrectSound] = useSound('/sound/game/correct.mp3');
+  const [playShowSound] = useSound("/sound/game/show.mp3");
+  const [playWrongSound] = useSound("/sound/game/wrong.mp3");
+  const [playCorrectSound] = useSound("/sound/game/correct.mp3");
 
-  const [gameState, setGameState] = useState<GameState>('idle');
+  const [gameState, setGameState] = useState<GameState>("idle");
   const [sequence, setSequence] = useState<string[]>([]);
   const [playerSequence, setPlayerSequence] = useState<string[]>([]);
   const [litPanel, setLitPanel] = useState<string | null>(null);
@@ -46,7 +45,7 @@ export default function SequenceGame() {
       const itemsToAdd = newSequenceLength - currentSequence.length;
       const newItems = Array.from(
         { length: itemsToAdd },
-        () => PANELS[getRandomInt(0, PANELS.length - 1)].id,
+        () => PANELS[getRandomInt(0, PANELS.length - 1)].id
       );
       return [...currentSequence, ...newItems];
     });
@@ -55,7 +54,7 @@ export default function SequenceGame() {
   const startGame = () => {
     const firstSequence = Array.from(
       { length: 1 },
-      () => PANELS[getRandomInt(0, PANELS.length - 1)].id,
+      () => PANELS[getRandomInt(0, PANELS.length - 1)].id
     );
     setSequence(firstSequence);
     setPlayerSequence([]);
@@ -79,7 +78,7 @@ export default function SequenceGame() {
         if (isCancelled) return;
         setLitPanel(null);
         await new Promise((resolve) =>
-          setTimeout(resolve, PRESENTATION_INTERVAL_MS - LIT_DURATION_MS),
+          setTimeout(resolve, PRESENTATION_INTERVAL_MS - LIT_DURATION_MS)
         );
       }
       if (!isCancelled) {
@@ -132,8 +131,8 @@ export default function SequenceGame() {
   useEffect(() => {
     if (isCorrect) {
       const timer = setTimeout(() => {
-        toast.success('クリア！おめでとうございます！');
-        router.push('/gm');
+        toast.success("クリア！おめでとうございます！");
+        router.push("/gm");
       }, 1000);
       return () => clearTimeout(timer);
     }
@@ -141,17 +140,17 @@ export default function SequenceGame() {
 
   const renderGameState = () => {
     switch (gameState) {
-      case 'idle':
+      case "idle":
         return (
           <Button onClick={startGame} size="lg" className="cursor-pointer">
             スタート
           </Button>
         );
-      case 'result':
+      case "result":
         return (
           <div className="flex w-full max-w-md flex-col items-center gap-4">
-            <Alert variant={isCorrect ? 'default' : 'destructive'}>
-              <AlertTitle>{isCorrect ? 'クリア！' : '不正解...'}</AlertTitle>
+            <Alert variant={isCorrect ? "default" : "destructive"}>
+              <AlertTitle>{isCorrect ? "クリア！" : "不正解..."}</AlertTitle>
             </Alert>
             {!isCorrect && (
               <Button onClick={startGame} className="cursor-pointer">
@@ -171,12 +170,12 @@ export default function SequenceGame() {
                   type="button"
                   aria-label={panel.id}
                   onClick={() => handlePanelClick(panel.id)}
-                  disabled={gameState !== 'playing'}
+                  disabled={gameState !== "playing"}
                   className={cn(
-                    'h-32 w-32 rounded-lg transition-all duration-100 md:h-40 md:w-40',
+                    "h-32 w-32 rounded-lg transition-all duration-100 md:h-40 md:w-40",
                     panel.color,
                     litPanel === panel.id && [panel.litColor, "scale-110"],
-                    gameState === 'playing' && 'cursor-pointer',
+                    gameState === "playing" && "cursor-pointer"
                   )}
                 />
               ))}
