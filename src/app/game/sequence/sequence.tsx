@@ -35,6 +35,7 @@ export default function SequenceGame() {
   const [litPanel, setLitPanel] = useState<string | null>(null);
   const [round, setRound] = useState(1);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [isInputEnabled, setIsInputEnabled] = useState(false);
 
   const advanceToNextLevel = useCallback(() => {
     setPlayerSequence([]);
@@ -60,6 +61,7 @@ export default function SequenceGame() {
     setPlayerSequence([]);
     setRound(1);
     setIsCorrect(null);
+    setIsInputEnabled(false);
     setGameState("presenting");
   };
 
@@ -83,6 +85,7 @@ export default function SequenceGame() {
       }
       if (!isCancelled) {
         setGameState("playing");
+        setIsInputEnabled(true);
       }
     };
 
@@ -105,18 +108,17 @@ export default function SequenceGame() {
       // 入力が正しいかチェック
       if (playWrongSound) playWrongSound();
       setIsCorrect(false);
+      setIsInputEnabled(false);
       setGameState("result");
       return;
     }
 
     setPlayerSequence(newPlayerSequence);
-    // パネルを一時的に光らせる
-    setLitPanel(panelId);
-    setTimeout(() => setLitPanel(null), 150);
-
-
     if (newPlayerSequence.length === sequence.length) {
+      // パネルを一時的に光らせる
+
       // シーケンスを最後まで入力したかチェック
+      setIsInputEnabled(false);
       if (playCorrectSound) playCorrectSound();
       if (round >= WINNING_LEVEL) {
         setIsCorrect(true);
@@ -125,6 +127,10 @@ export default function SequenceGame() {
         setTimeout(advanceToNextLevel, 1000);
       }
     }
+    setLitPanel(panelId);
+    setTimeout(() => setLitPanel(null), 150);
+
+
   };
 
   // ゲームクリア時の処理
@@ -177,12 +183,12 @@ export default function SequenceGame() {
                   type="button"
                   aria-label={panel.id}
                   onClick={() => handlePanelClick(panel.id)}
-                  disabled={gameState !== "playing"}
+                  disabled={!isInputEnabled}
                   className={cn(
                     "h-32 w-32 rounded-lg transition-all duration-100 md:h-40 md:w-40",
                     panel.color,
                     litPanel === panel.id && [panel.litColor, "scale-110"],
-                    gameState === "playing" && "cursor-pointer"
+                    isInputEnabled && "cursor-pointer"
                   )}
                 />
               ))}
