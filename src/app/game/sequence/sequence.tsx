@@ -142,9 +142,12 @@ export default function SequenceGame() {
     switch (gameState) {
       case "idle":
         return (
-          <Button onClick={startGame} size="lg" className="cursor-pointer">
-            スタート
-          </Button>
+          <div className="flex w-full max-w-md flex-col items-center gap-4">
+            <h1 className="sm:text-5xl text-3xl font-bold">順番記憶</h1>
+            <Button onClick={startGame} size="lg" className="cursor-pointer">
+              スタート
+            </Button>
+          </div>
         );
       case "result":
         return (
@@ -162,7 +165,7 @@ export default function SequenceGame() {
       default: // presenting or playing
         return (
           <div className="flex flex-col items-center gap-4">
-            <p className="text-2xl font-bold">ラウンド: {round}</p>
+            <p className="text-2xl font-bold">Round {round}</p>
             <div className="grid grid-cols-2 gap-4">
               {PANELS.map((panel) => (
                 <button
