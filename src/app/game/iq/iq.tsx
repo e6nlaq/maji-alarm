@@ -13,12 +13,23 @@ import { getRandomInt } from "@/lib/rand";
 const GRID_SIZE = 6; // グリッドサイズ (6x6)
 const TIME_LIMIT_MS = 7000; // 制限時間 (7秒)
 
-const EMOJI_PAIRS = [
-  { base: "😊", target: "☺️" },
-  { base: "❤️", target: "🩷" },
+interface EmojiPair {
+  base: string;
+  target: string;
+}
 
+const EMOJI_PAIRS: EmojiPair[] = [
   { base: "千", target: "干" },
   { base: "正", target: "止" },
+  { base: "😏", target: "😒" },
+  { base: "😀", target: "😃" },
+  { base: "カ", target: "力" },
+  { base: "0", target: "O" },
+  { base: "緑", target: "縁" },
+  { base: "掘", target: "堀" },
+  { base: "師", target: "帥" },
+  { base: "失", target: "矢" },
+  { base: "輸", target: "輪" },
 ];
 
 type GameState = "idle" | "countdown" | "playing" | "result";
@@ -170,9 +181,9 @@ export default function IqGame() {
         );
       case "playing":
         return (
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-4 w-full">
             <div
-              className={`grid w-full max-w-md gap-1 md:gap-2`}
+              className={`grid w-full max-w-md gap-1 md:gap-2 mx-auto`}
               style={{ gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)` }}
             >
               {gridData.map((row, rowIndex) =>
