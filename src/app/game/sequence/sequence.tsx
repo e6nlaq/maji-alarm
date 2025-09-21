@@ -105,8 +105,8 @@ export default function SequenceGame() {
 
     if (playShowSound) playShowSound();
 
-    // 入力が正しいかチェック
     if (sequence[newPlayerSequence.length - 1] !== panelId) {
+      // 入力が正しいかチェック
       if (playWrongSound) playWrongSound();
       setIsCorrect(false);
       setGameState("result");
@@ -115,10 +115,10 @@ export default function SequenceGame() {
 
     setPlayerSequence(newPlayerSequence);
 
-    // シーケンスを最後まで入力したかチェック
     if (newPlayerSequence.length === sequence.length) {
+      // シーケンスを最後まで入力したかチェック
+      if (playCorrectSound) playCorrectSound();
       if (round >= WINNING_LEVEL) {
-        if (playCorrectSound) playCorrectSound();
         setIsCorrect(true);
         setGameState("result");
       } else {
@@ -130,11 +130,8 @@ export default function SequenceGame() {
   // ゲームクリア時の処理
   useEffect(() => {
     if (isCorrect) {
-      const timer = setTimeout(() => {
-        toast.success("クリア！おめでとうございます！");
-        router.push("/gm");
-      }, 1000);
-      return () => clearTimeout(timer);
+      toast.success("クリア！おめでとうございます！");
+      router.push("/gm");
     }
   }, [isCorrect, router]);
 
