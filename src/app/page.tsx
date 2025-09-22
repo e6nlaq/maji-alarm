@@ -14,6 +14,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -31,40 +43,64 @@ export default function Home() {
         </span>
       </div>
 
-      <Dialog>
-        <DialogTrigger asChild>
-          <RainbowButton>使い方を見る</RainbowButton>
-        </DialogTrigger>
-        <DialogContent className="bg-background/65 dark:bg-background/25 backdrop-blur-lg">
-          <DialogHeader>
-            <DialogTitle>使い方</DialogTitle>
-          </DialogHeader>
-          <Alert>
-            <InfoIcon />
-            <AlertTitle>動作環境</AlertTitle>
-            <AlertDescription>
-              <span>
-                動作には「
-                <a
-                  href="https://apps.apple.com/jp/app/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88/id1462947752"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline text-blue-500 dark:text-blue-400"
-                >
-                  ショートカット
-                </a>
-                」アプリおよび最新バージョンのブラウザが必要です。
-              </span>
-            </AlertDescription>
-          </Alert>
-          TODO: あとで書く
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button>閉じる</Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <div className="flex gap-4">
+        <Dialog>
+          <DialogTrigger asChild>
+            <RainbowButton>使い方を見る</RainbowButton>
+          </DialogTrigger>
+          <DialogContent className="bg-background/65 dark:bg-background/25 backdrop-blur-lg">
+            <DialogHeader>
+              <DialogTitle>使い方</DialogTitle>
+            </DialogHeader>
+            <Alert>
+              <InfoIcon />
+              <AlertTitle>動作環境</AlertTitle>
+              <AlertDescription>
+                <span>
+                  動作には「
+                  <a
+                    href="https://apps.apple.com/jp/app/%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%88%E3%82%AB%E3%83%83%E3%83%88/id1462947752"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline text-blue-500 dark:text-blue-400"
+                  >
+                    ショートカット
+                  </a>
+                  」アプリおよび最新バージョンのブラウザが必要です。
+                </span>
+              </AlertDescription>
+            </Alert>
+            TODO: あとで書く
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button>閉じる</Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <RainbowButton>試す</RainbowButton>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>警告</AlertDialogTitle>
+              <AlertDialogDescription>
+                このアプリは
+                <span className="font-bold underline">非常にうるさい音声</span>
+                が出ます。周りの環境や音量に注意してお試しください。
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>キャンセル</AlertDialogCancel>
+              <AlertDialogAction asChild>
+                <Link href="/alarm">続行</Link>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </div>
   );
 }
