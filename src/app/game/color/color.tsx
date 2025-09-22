@@ -11,7 +11,7 @@ import { getRandomInt } from "@/lib/rand";
 import { cn } from "@/lib/utils";
 
 const WINNING_STREAK = 5;
-const ANSWER_TIMEOUT_MS = 700;
+const ANSWER_TIMEOUT_MS = 800;
 const NEXT_QUESTION_COUNTDOWN_SECONDS = 3;
 const RESULT_DISPLAY_MS = 1500;
 
