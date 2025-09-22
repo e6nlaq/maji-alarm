@@ -70,7 +70,21 @@ export default function Home() {
                 </span>
               </AlertDescription>
             </Alert>
-            TODO: あとで書く
+            <ol>
+              <li>
+                1.{" "}
+                <a
+                  href="https://www.icloud.com/shortcuts/503ec8df265e4d24a1516e21462fc85a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline text-blue-500 dark:text-blue-400"
+                >
+                  こちら
+                </a>
+                から公式ショートカットを入手する
+              </li>
+              <li>2. ショートカットアプリからオートメーションを設定する</li>
+            </ol>
             <DialogFooter>
               <DialogClose asChild>
                 <Button>閉じる</Button>
