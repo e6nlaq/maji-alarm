@@ -65,7 +65,7 @@ export default function Home() {
             <RainbowButton>使い方を見る</RainbowButton>
           </DialogTrigger>
           <DialogContent
-            className={cn(dialogClass, "overflow-y-auto max-h-[90vh]")}
+            className={cn(dialogClass, "overflow-y-auto max-h-[90svh]")}
           >
             <DialogHeader>
               <DialogTitle>使い方</DialogTitle>
