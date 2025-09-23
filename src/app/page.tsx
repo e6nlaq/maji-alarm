@@ -100,26 +100,41 @@ export default function Home() {
                   >
                     こちら
                   </a>
-                  から公式ショートカットを入手する
+                  からMaji Alarm公式ショートカットを入手する
                 </span>
               </li>
-              <li>2. ショートカットアプリからオートメーションを開く</li>
+              <li>2. ショートカットアプリを開く</li>
               <li>
-                3. +ボタンを押して新しいオートメーションを作成する
+                3. ショートカットの編集画面を開き、iマークを押す
+                <ExplainImage
+                  src="/explain/info.png"
+                  alt="ショートカットの編集画面"
+                />
+              </li>
+              <li>
+                4. プライバシーから、「ロック中に実行を許可」をオンにする
+                <ExplainImage
+                  src="/explain/privacy.png"
+                  alt="ショートカットの編集画面"
+                />
+              </li>
+              <li>5. ショートカットアプリからオートメーションを開く</li>
+              <li>
+                6. +ボタンを押して新しいオートメーションを作成する
                 <ExplainImage
                   src="/explain/automation.png"
                   alt="オートメーションタブの+ボタンに矢印が指されている画像"
                 />
               </li>
               <li>
-                4. お好みでオートメーションを選択する(ここでは時刻)
+                7. お好みでオートメーションを選択する(ここでは時刻)
                 <ExplainImage
                   src="/explain/select.png"
                   alt="オートメーション選択画面"
                 />
               </li>
               <li>
-                5. オートメーションを設定して次へを押す
+                8. オートメーションを設定して次へを押す
                 <Alert>
                   <TriangleAlertIcon />
                   <AlertTitle>注意</AlertTitle>
@@ -133,13 +148,13 @@ export default function Home() {
                 />
               </li>
               <li>
-                6. ショートカット「Maji Alarm」を選択する
+                9. ショートカット「Maji Alarm」を選択する
                 <ExplainImage
                   src="/explain/shortcut.png"
                   alt="ショートカットを選択する画面"
                 />
               </li>
-              <li>7. 設定完了</li>
+              <li>10. 設定完了</li>
               これで、設定したオートメーションが起動すると、Maji
               Alarmが起動するようになります。
             </ol>
