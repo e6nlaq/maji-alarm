@@ -1,4 +1,5 @@
 import { InfoIcon, TriangleAlertIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { Meteors } from "@/components/magicui/meteors";
@@ -27,7 +28,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { dialogClass } from "@/lib/css";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 function ExplainImage({ src, alt }: { src: string; alt: string }) {
@@ -88,7 +88,7 @@ export default function Home() {
                 </span>
               </AlertDescription>
             </Alert>
-            <ol className="flex flex-col gap-y-6 [&>li]:flex [&>li]:flex-col [&>li]:gap-2">
+            <ol className="flex justify-start items-start flex-col gap-y-6 [&>li]:flex [&>li]:flex-col [&>li]:gap-2">
               <li>
                 <span>
                   1.{" "}
