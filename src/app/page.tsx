@@ -1,4 +1,4 @@
-import { InfoIcon } from "lucide-react";
+import { InfoIcon, TriangleAlertIcon } from "lucide-react";
 import Link from "next/link";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { Meteors } from "@/components/magicui/meteors";
@@ -88,21 +88,60 @@ export default function Home() {
                 </span>
               </AlertDescription>
             </Alert>
-            <ol className="flex flex-col gap-2">
+            <ol className="flex flex-col gap-y-6 [&>li]:flex [&>li]:flex-col [&>li]:gap-2">
               <li>
-                1.{" "}
-                <a
-                  href="https://www.icloud.com/shortcuts/f4e9e3f550ea49168ccc775b99689d25"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline text-blue-500 dark:text-blue-400"
-                >
-                  こちら
-                </a>
-                から公式ショートカットを入手する
+                <span>
+                  1.{" "}
+                  <a
+                    href="https://www.icloud.com/shortcuts/f4e9e3f550ea49168ccc775b99689d25"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline text-blue-500 dark:text-blue-400"
+                  >
+                    こちら
+                  </a>
+                  から公式ショートカットを入手する
+                </span>
               </li>
-              <li>2. ショートカットアプリからオートメーションを設定する</li>
-              <ExplainImage src="/explain/automation.png" alt="" />
+              <li>2. ショートカットアプリからオートメーションを開く</li>
+              <li>
+                3. +ボタンを押して新しいオートメーションを作成する
+                <ExplainImage
+                  src="/explain/automation.png"
+                  alt="オートメーションタブの+ボタンに矢印が指されている画像"
+                />
+              </li>
+              <li>
+                4. お好みでオートメーションを選択する(ここでは時刻)
+                <ExplainImage
+                  src="/explain/select.png"
+                  alt="オートメーション選択画面"
+                />
+              </li>
+              <li>
+                5. オートメーションを設定して次へを押す
+                <Alert>
+                  <TriangleAlertIcon />
+                  <AlertTitle>注意</AlertTitle>
+                  <AlertDescription className="font-bold underline">
+                    「すぐに実行」を必ず選択してください。
+                  </AlertDescription>
+                </Alert>
+                <ExplainImage
+                  src="/explain/config.png"
+                  alt="トリガーの設定画面"
+                />
+              </li>
+              <li>
+                6. ショートカット「Maji Alarm」を選択する
+                <ExplainImage
+                  src="/explain/shortcut.png"
+                  alt="ショートカットを選択する画面"
+                />
+              </li>
+              <li>7. 設定完了</li>
+              これで、設定したオートメーションが起動すると、Maji
+              Alarmが起動するようになります。
             </ol>
             <DialogFooter>
               <DialogClose asChild>
