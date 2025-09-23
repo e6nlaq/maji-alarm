@@ -1,5 +1,6 @@
 "use client";
 
+import { dialogClass } from "@/lib/css";
 import type { GameData } from "@/types/game";
 import { Button } from "./ui/button";
 import {
@@ -11,7 +12,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-import { dialogClass } from "@/lib/css";
 
 export default function HowToPlay({ gameData }: { gameData: GameData }) {
   return (

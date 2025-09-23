@@ -1,9 +1,21 @@
 import { InfoIcon } from "lucide-react";
+import Link from "next/link";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { Meteors } from "@/components/magicui/meteors";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
 import { WordRotate } from "@/components/magicui/word-rotate";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,18 +26,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-  AlertDialogDescription,
-  AlertDialogCancel,
-  AlertDialogAction,
-} from "@/components/ui/alert-dialog";
-import Link from "next/link";
 import { dialogClass } from "@/lib/css";
 
 export default function Home() {
