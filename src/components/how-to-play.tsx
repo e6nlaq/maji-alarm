@@ -11,12 +11,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
+import { dialogClass } from "@/lib/css";
 
 export default function HowToPlay({ gameData }: { gameData: GameData }) {
   return (
     <Dialog defaultOpen>
       <DialogContent
-        className="dark:bg-background/25 bg-background/85 backdrop-blur-lg"
+        className={dialogClass}
         onInteractOutside={(e) => {
           e.preventDefault();
         }}

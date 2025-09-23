@@ -26,6 +26,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import Link from "next/link";
+import { dialogClass } from "@/lib/css";
 
 export default function Home() {
   return (
@@ -48,7 +49,7 @@ export default function Home() {
           <DialogTrigger asChild>
             <RainbowButton>使い方を見る</RainbowButton>
           </DialogTrigger>
-          <DialogContent className="bg-background/65 dark:bg-background/25 backdrop-blur-lg">
+          <DialogContent className={dialogClass}>
             <DialogHeader>
               <DialogTitle>使い方</DialogTitle>
             </DialogHeader>
@@ -97,7 +98,7 @@ export default function Home() {
           <AlertDialogTrigger asChild>
             <RainbowButton>試す</RainbowButton>
           </AlertDialogTrigger>
-          <AlertDialogContent>
+          <AlertDialogContent className={dialogClass}>
             <AlertDialogHeader>
               <AlertDialogTitle>警告</AlertDialogTitle>
               <AlertDialogDescription>
