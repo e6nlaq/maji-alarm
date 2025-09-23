@@ -4,8 +4,6 @@ import Image from "next/image";
 import { useEffect } from "react";
 import useSound from "use-sound";
 
-export const dynamic = "force-dynamic";
-
 export default function GoodMorning() {
   const [play] = useSound("/sound/chicken.mp3");
 
