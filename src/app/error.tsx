@@ -16,15 +16,16 @@ export default function ErrorPage({
   }, [error]);
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
+    <div className="flex flex-col gap-2 items-center justify-center h-screen">
+      <h2>申し訳ございません。予期せぬエラーが発生しました。</h2>
+      <p className="font-mono">{error.message}</p>
       <Button
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
-        Try again
+        再試行
       </Button>
     </div>
   );
