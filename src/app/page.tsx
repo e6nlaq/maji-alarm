@@ -144,9 +144,9 @@ export default function Home() {
               Alarmが起動するようになります。
             </ol>
             <DialogFooter>
-              <DialogClose asChild>
-                <Button autoFocus>閉じる</Button>
-              </DialogClose>
+              <Button autoFocus asChild type="button">
+                <DialogClose>閉じる</DialogClose>
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
