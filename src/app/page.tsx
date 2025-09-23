@@ -27,6 +27,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { dialogClass } from "@/lib/css";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+
+function ExplainImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={0}
+      height={0}
+      sizes="60%"
+      style={{ width: "60%", height: "auto", borderRadius: "10px" }}
+    />
+  );
+}
 
 export default function Home() {
   return (
@@ -49,7 +64,9 @@ export default function Home() {
           <DialogTrigger asChild>
             <RainbowButton>使い方を見る</RainbowButton>
           </DialogTrigger>
-          <DialogContent className={dialogClass}>
+          <DialogContent
+            className={cn(dialogClass, "overflow-y-auto max-h-[90vh]")}
+          >
             <DialogHeader>
               <DialogTitle>使い方</DialogTitle>
             </DialogHeader>
@@ -71,11 +88,11 @@ export default function Home() {
                 </span>
               </AlertDescription>
             </Alert>
-            <ol>
+            <ol className="flex flex-col gap-2">
               <li>
                 1.{" "}
                 <a
-                  href="https://www.icloud.com/shortcuts/503ec8df265e4d24a1516e21462fc85a"
+                  href="https://www.icloud.com/shortcuts/f4e9e3f550ea49168ccc775b99689d25"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline text-blue-500 dark:text-blue-400"
@@ -85,6 +102,7 @@ export default function Home() {
                 から公式ショートカットを入手する
               </li>
               <li>2. ショートカットアプリからオートメーションを設定する</li>
+              <ExplainImage src="/explain/automation.png" alt="" />
             </ol>
             <DialogFooter>
               <DialogClose asChild>
