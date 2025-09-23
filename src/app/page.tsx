@@ -145,7 +145,7 @@ export default function Home() {
             </ol>
             <DialogFooter>
               <DialogClose asChild>
-                <Button>閉じる</Button>
+                <Button autoFocus>閉じる</Button>
               </DialogClose>
             </DialogFooter>
           </DialogContent>
