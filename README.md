@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Maji Alarm
 
-## Getting Started
+このREADMEは、Gemini 2.5 Proによって作成され、人間の手によってチェック済みです。
 
-First, run the development server:
+## 概要
+
+このアプリケーションは、アラームを止めるためにミニゲームをクリアする必要がある、ユニークな目覚ましアプリです。朝が苦手な人でも、頭を使うゲームをクリアすることで、すっきりと目覚めることができます。
+
+## 主な機能
+
+- **アラーム機能**: 設定した時間になるとアラームが鳴り、ミニゲーム画面に遷移します。
+- **ミニゲーム**: 脳を活性化させるための、複数のミニゲームが用意されています。
+
+## 実装されているミニゲーム
+
+現在、以下のミニゲームをプレイできます。
+
+1.  **カラーマッチ**
+    - 色の名前と、その文字に付けられた色が一致しているかを瞬時に判断するゲームです。
+
+2.  **IQ150**
+    - たくさんの同じ絵文字の中から、一つだけ違う絵文字を素早く見つけ出す、観察力が試されるゲームです。
+
+3.  **順番記憶**
+    - 光るパネルの順番を記憶し、その通りに再現する、短期記憶力が試されるゲームです。
+
+4.  **フラッシュ暗算**
+    - 画面に次々と表示される数字を記憶し、その合計値を回答するゲームです。
+
+5.  **素因数分解**
+    - 表示された数字を素因数分解し、正しい答えを入力する計算ゲームです。
+
+## 技術スタック
+
+このプロジェクトは、以下の技術を使用して構築されています。
+
+-   [Next.js](https://nextjs.org/) (App Router)
+-   [React](https://react.dev/)
+-   [TypeScript](https://www.typescriptlang.org/)
+-   [Tailwind CSS](https://tailwindcss.com/)
+-   [shadcn/ui](https://ui.shadcn.com/)
+-   [Bun](https://bun.sh/)
+
+## 開発環境のセットアップ
+
+1.  **依存関係のインストール:**
+
+    ```bash
+    bun install
+    ```
+
+2.  **開発サーバーの起動:**
+
+    ```bash
+    bun dev
+    ```
+
+    ブラウザで [http://localhost:3000](http://localhost:3000) を開くと、アプリケーションを確認できます。
+
+## テストの実行
+
+以下のコマンドで、プロジェクトのテストを実行できます。
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun test
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
